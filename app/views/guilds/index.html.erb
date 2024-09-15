@@ -1,0 +1,30 @@
+<header class="bg-paper-black text-center text-amber-200 px-4 pt-8 overflow-hidden">
+  <div class="max-w-[72ch] mx-auto space-y-4">
+    <h1 class="font-bold text-6xl">Guilds of the Realm</h1>
+    <p class="text-2xl text-balance">The plan is set, you’ve joined a guild, but what to wear to the main event?</p>
+  </div>
+  <div class="card max-w-[40ch] mt-6 pt-0 pb-8 flex flex-col gap-2 text-left font-hand text-emerald-900 mx-auto -mb-8 rotate-2">
+    <p class="text-xl">Wear what brings you joy and comfort, but we should note your guild’s color IS important (even just a small token).</p>
+    <p class="text-xl">Recognizing one another in a crowd may prove crucial to your adventure.</p>
+    <p class="font-bold self-end">– N+M<br> ps: we'll be wearing blue!</p>
+
+  </div>
+</header>
+<nav class="min-h-screen">
+  <ul class="grid min-h-full">
+    <% @guilds.each do |guild| %>
+      <li class="flex-1 grid place-content-center p-4 text-center bg-cover h-[80dvh]" style="background-image: url('<%= url_for(guild.background) if guild.background.attached?%>');">
+        <%= link_to guild_path(guild) do %>
+          <div class="p-4 space-y-4 h-full rounded-b-lg rounded-t-full bg-amber-100/40 backdrop-blur-md max-w-[32ch] mx-auto">
+            <%= image_tag(url_for(guild.icon), class: "size-56 mx-auto rounded-full guild-#{guild.name}") if guild.icon.present? %>
+            <div>
+              <h2><%= guild.name %></h2>
+              <p class="text-balance"><%= guild.description %></p>
+              <p class="italic mt-4">View looks &rarr;</p>
+            </div>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

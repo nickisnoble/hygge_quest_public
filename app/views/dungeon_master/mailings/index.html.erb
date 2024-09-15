@@ -1,0 +1,6 @@
+<header class="flex justify-between items-center">
+  <h1>Scrolls</h1>
+  <%= link_to "New", new_dungeon_master_mailing_path, class: "btn primary" %>
+</header>
+
+<%= render @mailings.order(created_at: :desc) %>

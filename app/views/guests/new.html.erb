@@ -1,0 +1,16 @@
+<div class="bg-cover bg-[url('backgrounds/forest.jpg')] bg-fixed min-h-screen p-4 md:p-12 xl:p-20">
+  <div class="flex flex-col gap-12 max-w-screen-xl mx-auto relative z-10">
+    <section class="grid flex-col gap-4 card bg-paper max-w-screen-md mx-auto odd:-rotate-[0.5deg] even:rotate-[0.5deg] even:self-end">
+      <div class="space-y-1 text-center">
+        <h2>Add a guest to “<%= @guest.party.name %>”</h2>
+        <%= link_to "&larr; Back to RSVP".html_safe, edit_party_path(@guest.party)  %>
+      </div>
+
+      <div class="*:flex-col">
+        <%= turbo_frame_tag "new_guest_for_#{dom_id(@guest.party)}" do %>
+          <%= render 'form', guest: @guest %>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

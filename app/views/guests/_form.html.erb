@@ -1,0 +1,46 @@
+<%= form_with model: guest, html: { class: "bg-parchment-dark rounded-md shadow-inner p-2" } do |f| %>
+  <div class="flex gap-px flex-col md:flex-row text-left">
+    <div class="field bg-paper p-1 flex-[3]">
+      <%= f.label :name %>
+      <%= f.text_field :name, required: true %>
+    </div>
+
+    <% if guest.under_13? %>
+      <%= f.hidden_field :under_13, value: true %>
+    <% else %>
+      <div class="field bg-paper p-1 flex-[3]">
+        <%= f.label :email %>
+        <%= f.email_field :email, disabled: f.object.persisted? && f.object.email.present? && !current_user.dungeon_master? %>
+      </div>
+    <% end %>
+
+    <div class="field bg-paper p-1 flex-[2]">
+      <%= f.label :food_preference, "Feast", required: true %>
+      <% food_options = [['Foraged (V)', 'vegetarian'], ['Fowl (Duck)', 'duck'], ['Fish (Salmon)', 'salmon']] %>
+      <% food_options.prepend(['Child’s Feast', 'child']) if guest.under_13? %>
+      <%= f.select :food_preference, food_options, class: "block w-full", prompt: "Wants to eat..." %>
+    </div>
+    <div class="field bg-paper p-1 flex-[2]">
+      <%= f.label :guild_id, "Guild" %>
+      <%= f.collection_select :guild_id, Guild.where(secret: false), :id, :name, { include_blank: 'Select Guild' }, { class: "block w-full" } %>
+    </div>
+
+    <% if current_user.dungeon_master? %>
+    <div class="field bg-parchment-dark p-1 flex-[2]">
+      <%= f.label :party_id, "Party" %>
+      <%= f.collection_select :party_id, Party.all, :id, :name, { class: "block w-full" } %>
+    </div>
+    <% end %>
+
+    <%= f.submit guest.new_record? ?
+            guest.under_13? ?
+              "Add Child"
+            : "Add Guest"
+          : "Save",
+    class: "btn primary" %>
+  </div>
+
+  <% if guest.errors.any? %>
+    <p class="text-red-700"><%= guest.errors.full_messages.to_sentence %></p>
+  <% end %>
+<% end %>

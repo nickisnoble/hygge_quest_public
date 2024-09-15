@@ -1,0 +1,15 @@
+<div class="bg-cover bg-[url('backgrounds/path.jpg')] h-screen p-4 grid place-content-center">
+  <div class="card md:text-xl space-y-4">
+    <div class="space-y-1">
+      <h3>Check your email</h3>
+      <p>There you will find the magic runes that unlock this gate.</p>
+    </div>
+    <%= form_with(model: @session, url: url_for(action: 'update'), scope: 'passwordless', method: 'patch', data: { turbo: false }) do |f| %>
+      <div class="field">
+        <%= f.label :token, autocomplete: "off" %>
+        <%= f.text_field :token %>
+      </div>
+      <%= f.submit t(".confirm"), class: "mt-1 float-right italic text-amber-700 hover:underline" %>
+    <% end %>
+  </div>
+</div>

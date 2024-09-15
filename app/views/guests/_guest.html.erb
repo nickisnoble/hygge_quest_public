@@ -1,0 +1,31 @@
+<%= turbo_frame_tag guest do %>
+  <div class="@container flex max-sm:flex-col sm:justify-between sm:items-center gap-2 text-left border rounded-md p-2">
+    <header class="md:flex-2">
+      <h3 class="whitespace-nowrap"><%= guest.name %></h3>
+      <p class="truncate"><%= guest.under_13 ? "Child" : link_to(guest.email, "mailto:#{guest.email}") %></p>
+    </header>
+
+    <div class="md:flex-2 flex flex-wrap gap-y-1 gap-x-3 whitespace-nowrap">
+      <figure class="flex gap-1 items-center">
+        <%= image_tag "food/#{guest.food_preference}.jpg", class: "self-center size-6 rounded" if guest.food_preference %>
+        <figcaption><%= guest.feast %></figcaption>
+      </figure>
+      <figure class="flex gap-1 items-center">
+        <%= image_tag(url_for(guest.guild.icon), class: "self-center size-6 rounded") if guest.guild&.icon&.attached? %>
+        <figcaption><%= guest.guild ? guest.guild.name : "No Guild Chosen" %></figcaption>
+      </figure>
+    </div>
+
+
+    <% unless guest.party.locked? && !current_user.dungeon_master? %>
+      <nav class="flex gap-2 italic uppercase text-xs sm:justify-self-end">
+        <%= link_to "Edit", edit_guest_path(guest) %>
+        <%= button_to "Remove", guest_path(guest),
+          method: :delete,
+          class: "uppercase italic",
+          form: { data: { turbo_confirm: "Are you sure you want to remove #{guest.name}?" }}
+        %>
+      </nav>
+    <% end %>
+  </div>
+<% end %>

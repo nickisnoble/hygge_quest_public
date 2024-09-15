@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://kit.fontawesome.com/a99b3f2249.js" crossorigin="anonymous"></script>
+<div class="relative h-dvh w-screen">
+  <h1 class="absolute top-8 left-8 font-bold z-50 text-emerald-900">The Realm</h1>
+  <div id="map" class="h-full w-full bg-amber-900 relative z-10"></div>
+</div>
+<script>
+  const options = {
+     zoomControl: false,
+     attributionControl: false
+  }
+
+  const baltimore = [39.3403478,-76.6217985];
+  const map = L.map('map', options).setView(baltimore, 12).setMaxZoom(16);
+
+  // Watercolor base
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', { maxZoom: 16 }).addTo(map);
+
+  // Text Labels
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+  	  subdomains: 'abcd',
+  	  maxZoom: 10
+  }).addTo(map);
+
+  function customIcon(name, highlighted=false) {
+    const colors = highlighted ?
+        "text-blue-800 hover:text-blue-600 z-50"
+      : "text-rose-900 hover:text-rose-700 z-40"
+    return  L.divIcon({
+        html: `
+          <div class="relative h-full w-full grid text-center items-end ${colors} transition-colors">
+            <i class="text-xl fas fa-${name} drop-shadow"></i>
+          </div>
+        `,
+        iconSize: [30, 42],
+        iconAnchor: [15, 42]
+    });
+  }
+
+  // POPULATE
+  fetch('/locations')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(location => {
+        const marker = L.marker(
+          [location.latitude, location.longitude],
+          { icon: customIcon( location.icon, location.is_key )}
+        ).addTo(map);
+        marker.bindPopup(`
+          <div class="space-y-1 card py-2 w-full">
+            <header>
+              <i class="block text-xl fas fa-${location.icon}"></i>
+              <h3>${location.name}</h3>
+              <p>${location.description}</p>
+            </header>
+
+            <footer class="border-t border-amber-950/5 pt-1">
+              <p class="inline">Open in:</p>
+              <nav class="inline-flex gap-1">
+                <a href="https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}" target="_blank">Google Maps</a> /
+                <a href="http://maps.apple.com/?ll=${location.latitude},${location.longitude}&q=Dropped%20Pin" target="_blank">Apple Maps</a>
+              </nav>
+            </footer>
+          </div>
+        `);
+      });
+    });
+</script>
+<style>
+  /* RESETS */
+  .leaflet-container { font: unset; }
+  .leaflet-div-icon{
+    border: none;
+    background: transparent;
+    transform: translateY(20%);
+  }
+  .leaflet-popup-content-wrapper {
+    background: unset;
+    padding: 0;
+    box-shadow: unset;
+    border-radius: unset;
+    width: max-content;
+  }
+  .leaflet-popup-content {
+    margin: unset
+  }
+
+  .leaflet-popup-content p { margin: unset }
+
+
+  /* CHANGES */
+  .leaflet-popup { margin-bottom: 32px; }
+  .leaflet-popup-close-button{
+    top: 8px !important;
+    right: 8px !important;
+  }
+  .leaflet-popup-tip {
+    background-color: #e6d4ae;
+  }
+</style>

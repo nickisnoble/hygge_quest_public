@@ -1,0 +1,63 @@
+<%= form_with(model: [:dungeon_master, @guild], local: true, class: "space-y-4") do |form| %>
+  <div
+  class="relative min-h-screen grid place-content-center"
+  data-controller="asset-preview"
+>
+    <%= form.label :background, class: "absolute inset-0 -z-0 h-full w-full" do %>
+      <%= form.file_field :background,
+        direct_upload: true,
+        data: { action: "change->asset-preview#update" },
+        class: ('sr-only' if @guild.icon.attached?) %>
+      <%= image_tag(
+        @guild.background.attached? ?
+          url_for(@guild.background)
+        : asset_path("textures/gold.jpg"),
+        id: "guild_background_preview",
+        class: "h-full w-full object-cover")
+      %>
+    <% end %>
+    <div class="card max-w-sm mx-auto space-y-4 relative z-10">
+      <div class="field">
+        <%= form.label :icon do %>
+          <%= form.file_field :icon,
+            direct_upload: true,
+            class: ('sr-only' if @guild.icon.attached?),
+            data: { action: "change->asset-preview#update" } %>
+          <%= image_tag(url_for(@guild.icon), id: "guild_icon_preview") if @guild.icon.attached? %>
+        <% end %>
+      </div>
+      <h1>Editing <%= @guild.name %></h1>
+      <div class="field">
+        <%= form.label :description %>
+        <%= form.text_area :description, rows: 6 %>
+      </div>
+      <div class="field">
+        <%= form.label :looks, class: "grid place-content-center border overflow-hidden gap-2 cursor-pointer p-2" do %>
+          <p class="font-sans uppercase font-bold text-[8px]">Add looks</p>
+          <%= form.file_field :looks, multiple: true, direct_upload: true, class: "sr-only" %>
+        <% end %>
+        <ul class="grid grid-cols-3 gap-px auto-rows-[12rem] max-h-64 overflow-scroll">
+          <% @guild.looks.reverse.each do |image| %>
+            <li id="guild_look_<%= image.id %>" data-controller="removable-image-preview" class="relative">
+              <%= form.hidden_field :looks, multiple: true, value: image.signed_id %>
+              <%= image_tag url_for(image), class: "h-full w-full object-cover" %>
+              <%= link_to "×", "#",
+                data: {
+                  image_id: image.id,
+                  action: 'click->removable-image-preview#remove',
+                },
+                class: "absolute top-1 right-1 z-20 size-6 bg-black/20 hover:bg-black text-white rounded-full text-center" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div>
+        <%= form.label :secret %>
+        <%= form.check_box :secret %>
+      </div>
+      <div class="actions">
+        <%= form.submit "Save Changes", class: "btn primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

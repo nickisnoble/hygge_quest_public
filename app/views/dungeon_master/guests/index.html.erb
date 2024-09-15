@@ -1,0 +1,25 @@
+
+<aside class="flex justify-between items-baseline">
+<%= form_with url: dungeon_master_guests_path, method: :get, data: {
+  turbo_frame: "guests",
+  turbo_action: "advance",
+  controller: "form",
+  action: "input->form#submit"
+} do |form| %>
+  <%= form.search_field :name, placeholder: "Search by name...", value: params[:name] %>
+<% end %>
+
+  <%= link_to "Export CSV", dungeon_master_guests_path(format: :csv), class: "btn" %>
+</aside>
+
+<div class="w-full grid [grid-template-columns:repeat(6,minmax(min-content,100%))]">
+  <header class="col-span-full grid grid-cols-subgrid border-b-2">
+    <% @columns.each do |label, field| %>
+      <%= link_to label, { sort: field }, { class: (params[:sort] == field.to_s ? 'font-bold' : ''), data: { turbo_action: 'replace', turbo_frame: label } } %>
+    <% end %>
+  </header>
+
+  <%= turbo_frame_tag "guests", class: "contents" do %>
+    <%= render @guests %>
+  <% end %>
+</div>

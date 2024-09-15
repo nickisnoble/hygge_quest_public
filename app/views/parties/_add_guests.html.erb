@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "new_guest_for_#{dom_id(party)}", class: "contents" do %>
+<% end %>
+
+<div class="flex flex-col justify-start align-baseline text-red-800 text-left italic rounded border border-red-900/40 border-dashed divide-y divide-red-900/40 divide-dashed">
+  <%= link_to "+ Add guest (age 13+)", new_guest_path(party_id: party.id), data: { turbo_frame: "new_guest_for_#{dom_id(party)}" }, class: "p-2 grid place-content-center hover:bg-red-700/5 hover:shadow-inner hover:text-red-950 hover:underline transition-all" %>
+  <%= link_to "+ Add child (under age 13)", new_guest_path(under_13: true, party_id: party.id), data: { turbo_frame: "new_guest_for_#{dom_id(party)}" }, class: "p-2 grid place-content-center hover:bg-red-700/5 hover:shadow-inner hover:text-red-950 hover:underline transition-all" %>
+</div>

@@ -1,0 +1,61 @@
+<div class="bg-cover bg-[url('backgrounds/castle.jpg')] min-h-screen grid place-content-center pt-40 pb-20 px-4">
+  <div class="card md:text-xl space-y-5 text-center max-w-screen-lg">
+    <h1>Thank you for your response!</h1>
+
+    <% if @party.rsvp? %>
+      <p class="text-balance">Keep an eye to your inbox, where we’ll update you with additional information including dress code inspiration, accommodation details, and more, in the near future.</p>
+
+      <ul class="grid gap-y-8 gap-x-4 md:grid-cols-3 text-base text-left p-6">
+        <li class="space-y-2">
+          <h4 class="font-bold font-caption uppercase text-sm not-italic">What to wear</h4>
+          <p class="leading-tight">First and foremost, be comfortable and express yourself. We encourage you to lean into your chosen guild's colors, and feel free to <%= link_to "peruse the realm's latest fashion trends", guilds_path, class: "underline decoration-dotted hover:decoration-solid" %> for inspiration.</p>
+          <p class="leading-tight">We already know of various people intending to wear kilts, cocktail dresses, cloaks, and plate armor – do what you feel confident in, and inspires your sense of adventure.</p>
+          <p class="text-balance leading-[1.1] p-2 font-bold border-l"><strong class="font-caption text-xs font-bold">TL;DR:</strong><em class="italic tracking-tight">“Creative Black Tie”, fantasy optional, anything but blue*</em></p>
+          <p class="text-balance text-xs text-caption opacity-60">*We (the bride & groom) will be wearing blue.</p>
+        </li>
+
+        <li class="space-y-2">
+          <h4 class="font-bold font-caption uppercase text-sm not-italic">Where to stay</h4>
+          <p class="leading-tight text-pretty">We have blocks at two local hotels:</p>
+          <ul class="space-y-1 indent-2 leading-tight">
+            <li class="text-pretty">
+              <h5 class="inline font-caption text-xs font-bold uppercase"><a class="underline decoration-dotted hover:decoration-solid" href="https://hotelrevivalbaltimore.com/">Hotel Revival</a>.</h5>
+              <p class="inline">A trendy bastion in the historic part of the city – walking distance to museums, monuments, and eateries. Great for those looking to explore the city and its sights, and convenient for those arriving by train.</p>
+            </li>
+
+            <li class="text-pretty">
+              <h5 class="inline font-caption text-xs font-bold uppercase"><a class="underline decoration-dotted hover:decoration-solid" href="https://www.marriott.com/">Delta by Marriot</a>.</h5>
+              <p class="inline">Nestled in the village of Cross Keys, Delta boasts free parking, nearby shops and restaurants, and ample greenery. Great for those who want to be closer to the wedding venue, and escape the hustle and bustle of city life.</p>
+            </li>
+          </ul>
+        </li>
+
+        <li class="space-y-2 relative pb-10">
+          <h4 class="font-bold font-caption uppercase text-sm not-italic">More to the story</h4>
+          <p class="leading-tight">This is just the first step of the journey, and we’re so happy to have you coming along with us – <%= link_to "the realm", map_path, class: "underline decoration-dotted hover:decoration-solid" %> is full of adventures to be had.</p>
+          <p class="leading-tight text-pretty">We have more to share soon, but if there any questions at all, feel free to reach out to either of us:</p>
+
+          <ul>
+            <li>— <a class="underline decoration-dotted hover:decoration-solid" href="mailto:bride@example.com">Marnie Williams</a></li>
+            <li>— <a class="underline decoration-dotted hover:decoration-solid" href="mailto:nick@miniware.team">Nick Noble</a></li>
+          </ul>
+
+          <%= image_tag "props/seal-wax.png", class: "absolute right-0 bottom-0 size-24 rotate-6", alt: "A dark green wax seal depicting a magical lantern enreathed by flowers and eucalyptus." %>
+        </li>
+
+      </ul>
+
+      <% unless @party.locked? %>
+        <hr>
+        <% deadline = @party.response_deadline %>
+        <h4>In the meantime, here's what you submitted – feel free to update until <%= deadline.strftime("%B #{deadline.day.ordinalize}, %Y") %>:</h4>
+      <% end %>
+
+      <%= render @party %>
+    <% else %>
+    <div class="grid place-content-center">
+      <%= render "shared/quick_links" %>
+    </div>
+    <% end %>
+  </div>
+</div>

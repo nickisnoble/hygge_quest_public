@@ -1,0 +1,42 @@
+<%= turbo_frame_tag dom_id(@party) do %>
+  <div class="grid md:grid-cols-2 gap-2 p-2 shadow-lg rounded-md border bg-paper">
+    <div class="flex flex-col justify-between gap-2">
+      <%= form_with model: [:dungeon_master, @party], class: "space-y-2" do |f| %>
+        <div class="field-group">
+          <div class="field">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+          <div class="field">
+            <%= f.label :response_deadline %>
+            <%= f.date_field :response_deadline %>
+          </div>
+        </div>
+        <div class="field">
+          <%= f.label :notes, "Notes" %>
+          <%= f.text_area :notes, rows: 2, placeholder: "Be mindful guests may see these." %>
+        </div>
+        <div class="actions flex justify-between">
+          <%= f.submit "Save", class: "btn primary" %>
+          <%= button_to 'Remove?',
+        dungeon_master_party_path(@party),
+        method: :delete, form: {
+          data: {
+            turbo_confirm: "Are you sure you want to remove #{@party.name} along with #{pluralize(@party.guests.count, "guest")}?"
+        }}, class: "italic hover:underline text-red-700/40" %>
+        </div>
+      <% end %>
+
+    </div>
+    <div>
+      <%= turbo_frame_tag "#{dom_id(@party)}_guests" do %>
+        <%= render partial: 'guests/guest',
+                  collection: @party.guests
+                %>
+      <% end %>
+      <div class="div sm:*:flex-row sm:*:justify-stretch *:divide-y-0 *:border-none">
+        <%= render partial: "parties/add_guests", locals: {party: @party} %>
+      </div>
+    </div>
+  </div>
+<% end %>

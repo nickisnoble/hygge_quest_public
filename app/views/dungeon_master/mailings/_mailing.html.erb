@@ -1,0 +1,5 @@
+<div class="p-2">
+  <h3><%= mailing.subject %></h3>
+  <p>Sent to <%= mailing.guests.count %> guests on <%= mailing.created_at.strftime("%b %d") %>.</p>
+  <%= link_to "View &rarr;".html_safe, [:dungeon_master, mailing] %>
+</div>

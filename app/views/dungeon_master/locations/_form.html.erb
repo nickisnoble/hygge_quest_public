@@ -1,0 +1,39 @@
+<%= form_with(model: [:dungeon_master, location], local: true, class: "space-y-4") do |form| %>
+  <div class="field text-2xl">
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, required: true %>
+  </div>
+  <div>
+    <div class="field">
+      <%= form.label :icon %>
+      <%= form.text_field :icon, class: "font-mono" %>
+    </div>
+    <p class="italic opacity-40">Must be exact text, anything from <%= link_to "FontAwesome", "https://fontawesome.com/search?o=r&s=solid", class: "underline" %></p>
+  </div>
+  <div>
+    <%= form.label :is_key, class: "flex gap-2 items-center" do %>
+      <%= form.check_box :is_key, class: "accent-emerald-900" %> <p>This is a key location?</p>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= form.submit class: "btn primary" %>
+  </div>
+  <% if location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(location.errors.count, "error") %> prohibited this location from being saved:</h2>
+      <ul>
+        <% location.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

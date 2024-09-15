@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="scroll-p-6 scroll-smooth focus:scroll-auto">
+  <head>
+    <title>DM SCREEN</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="bg-emerald-950 text-emerald-200">
+    <main class="min-h-screen p-4">
+      <div class="max-w-screen-lg w-full mx-auto p-4 bg-paper shadow-md text-amber-950 flex flex-col gap-4">
+        <nav class="flex items-baseline font-caption text-sm gap-2">
+          <p><span class="font-bold uppercase text-emerald-800"><%= current_user.name %></span> <%= link_to "(Logout?)", guests_sign_out_path(current_user), class: "italic hover:underline" %></p>
+          <h5 class="ml-1 font-bold uppercase text-xs">Quick links:</h5>
+          <div class="flex gap-2">
+            <%= link_to "Guests", dungeon_master_root_path, class: "underline hover:decoration-dotted" %>
+            <%= link_to "Parties", dungeon_master_parties_path, class: "underline hover:decoration-dotted" %>
+            <%= link_to "Scrolls", dungeon_master_mailings_path, class: "underline hover:decoration-dotted" %>
+            <%= link_to "Guilds", dungeon_master_guilds_path, class: "underline hover:decoration-dotted" %>
+            <%= link_to "Locations", dungeon_master_locations_path, class: "underline hover:decoration-dotted" %>
+          </div>
+          <div class="ml-auto">
+            <%= render "shared/flash" %>
+          </div>
+        </nav>
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+<%= turbo_frame_tag dom_id(quest), class: "flex flex-col gap-1 h-full" do %>
+  <h3><%= link_to quest.title, edit_dungeon_master_quest_path(quest) %></h3>
+  <hr>
+  <p class="flex-1"><%= quest.description %></p>
+  <div class="flex justify-between gap-2 pt-2 border-t">
+    <p class="font-bold"><%= quest.xp %>XP</p>
+    <p class="italic text-right"><%= quest.reward %></p>
+  </div>
+<% end %>

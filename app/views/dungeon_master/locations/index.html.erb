@@ -1,0 +1,20 @@
+<script src="https://kit.fontawesome.com/a99b3f2249.js" crossorigin="anonymous"></script>
+<%= link_to "Add a point of interest", new_dungeon_master_location_path, class: "btn self-start" %>
+<div class="grid grid-ram gap-4">
+  <% @locations.each do |location| %>
+    <div class="location card space-y-2">
+      <header>
+        <i class="block text-sm fas fa-<%= location.icon %>"></i>
+        <h3><%= location.name %></h3>
+        <p><%= location.description %></p>
+        <p><%= location.address %></p>
+        <p class="text-xs font-mono"><%= location.latitude %> / <%= location.longitude %></p>
+      </header>
+      <hr>
+      <nav class="flex gap-1 place-items-start">
+        <%= link_to 'Edit', edit_dungeon_master_location_path(location), class: "btn primary pb-0 px-1 leading-none" %>
+        <%= button_to 'Delete', dungeon_master_location_path(location), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: "btn pb-0 px-1 leading-none" %>
+      </nav>
+    </div>
+  <% end %>
+</div>

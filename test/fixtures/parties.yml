@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "The Couple"
+  rsvp: true
+
+
+two:
+  name: "THE Frogs"
+  rsvp: true
+
+three:
+  notes: "Why can I not attend the wedding? Because I'm was already 'bear'-ied in work! Wocka wocka!"
+  rsvp: false

@@ -1,0 +1,6 @@
+<%= turbo_stream.append "#{dom_id(@guest.party)}_guests", @guest %>
+<%= turbo_stream.replace "new_guest_for_#{dom_id(@guest.party)}" do %>
+  <%= turbo_frame_tag "new_guest_for_#{dom_id(@guest.party)}" do %>
+    <%# Nothing! %>
+  <% end %>
+<% end %>

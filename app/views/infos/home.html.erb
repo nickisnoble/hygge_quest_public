@@ -1,0 +1,51 @@
+<style>
+  main {
+    background-position: center center;
+  }
+
+  #main-navigation {
+    background-image: radial-gradient(at bottom left, #0a504add, transparent);
+    background-attachment: fixed;
+    color: rgb(254 243 199);
+
+    & a {
+      line-height: 1;
+      font-size: 2.8rem;
+
+      @media (min-width: 768px) {
+        /* 6xl */
+        font-size: 3.75rem;
+      }
+
+      /* Fix leading */
+      margin-top: 0.5rem;
+      padding-bottom: 0.25rem;
+
+      &:hover {
+        font-style: italic;
+      }
+    }
+  }
+</style>
+<main class="grid bg-cover bg-[url('backgrounds/castle.jpg')] min-h-screen">
+  <nav id="main-navigation" class="flex flex-col justify-end items-start p-4 gap-1">
+    <% if current_user %>
+      <h5 class="text-white text-xl mb-3 leading-none">
+        Welcome <%= current_user.name %>!<br>
+        <span class="font-bold italic leading-tight">Choose your path:</span></h5>
+
+      <%= link_to "DM Screen", dungeon_master_root_path if current_user&.dungeon_master? %>
+
+      <% if current_user.party.rsvp?  %>
+        <%= link_to "Adventuring Party", party_path %>
+        <%= link_to "Map of the Realm", map_path, data: { turbo: false } %>
+      <% end %>
+    <% else %>
+      <h5 class="text-white italic leading-tight text-xl font-bold mb-3">Choose your path:</h5>
+      <%= link_to "RSVP", new_party_path %>
+    <% end %>
+    <%= link_to "Registry", registry_path %>
+    <%= link_to "Guilds", guilds_path if current_user %>
+    <%= auth_link %>
+  </nav>
+</main>

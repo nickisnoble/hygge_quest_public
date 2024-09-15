@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>Dear <%= @guest.name %>,</p>
+
+    <%= @mailing.body %>
+
+    <p><em>(Feel free to reply and I’ll pass your messages along to Marnie & Nick!)</em></p>
+
+    <hr>
+
+    <p><strong>Helpful links:</strong></p>
+    <ul>
+      <li><%= link_to "Your Adventuring Party", party_url %></li>
+      <li><%= link_to "All Guilds", guilds_url %></li>
+      <li><%= link_to "Registry", registry_url %></li>
+      <li><%= link_to "Map of the Realm", map_url %></li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<div class="bg-cover bg-[url('backgrounds/path.jpg')] h-screen p-4 grid place-content-center">
+  <div class="card md:text-xl space-y-6">
+    <div class="space-y-2">
+      <h3 class="text-balance leading-tight">You've encountered the gate of "Login"</h3>
+    </div>
+    <%= form_with(model: @session, url: url_for(action: 'new'), data: { turbo: 'false' }) do |f| %>
+      <% email_field_name = :"passwordless[#{email_field}]" %>
+      <div class="field">
+        <%= f.label email_field_name,
+              t("passwordless.sessions.new.email.label"),
+              for: "passwordless_#{email_field}" %>
+          <%= email_field_tag email_field_name,
+      params.fetch(email_field_name, nil),
+      required: true,
+      autofocus: true,
+      placeholder: t("passwordless.sessions.new.email.placeholder") %>
+        </div>
+        <%= f.submit t("passwordless.sessions.new.submit"), class: "mt-1 float-right italic text-amber-700 hover:underline" %>
+      <% end %>
+    </div>
+  </div>

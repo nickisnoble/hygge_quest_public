@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html class="scroll-p-6 scroll-smooth focus:scroll-auto">
+  <head>
+    <title>Nick & Marnie’s Wedding</title>
+    <meta property="og:image" content="<%= image_url(@og_image || 'og-rsvp.jpg') %>"/>
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= favicon_link_tag asset_path('favicon.png') %>
+    <%= javascript_importmap_tags %>
+
+    <script defer type="text/javascript"
+      src="https://api.pirsch.io/pirsch-extended.js"
+      id="pirschextendedjs"
+      data-code="OOpeQF1mUMCAtG6LdjEIKlpsRK4nTSPB"
+      data-exclude="\/guest\/sign_in\/.*"></script>
+  </head>
+  <body class="bg-emerald-950">
+    <%= yield %>
+  </body>
+</html>

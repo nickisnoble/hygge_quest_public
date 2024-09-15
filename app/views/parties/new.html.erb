@@ -1,0 +1,72 @@
+<div class="bg-cover bg-[url('backgrounds/forest.jpg')] bg-fixed min-h-screen p-4">
+  <div class="my-80 md:my-12">
+    <section class="text-center space-y-6 card bg-paper max-w-screen-sm mx-auto pt-4 md:pt-8 pb-12 -rotate-[0.5deg]">
+      <%= image_tag "props/seal.png", class: "size-24 block mx-auto -mt-6" %>
+      <div class="space-y-1">
+        <h2>Dearest friends &amp; family, from far and wide</h2>
+        <p>Your assistance is requested in a matter most close to heart:</p>
+      </div>
+      <div class="space-y-1">
+        <h3 class="uppercase text md:text-xl font-normal">the next chapter for</h3>
+        <h1 class="text-5xl">Marnie Williams &amp; Nick Noble</h1>
+        <h3 class="uppercase text md:text-xl font-normal">starts on April 28th, 2024</h3>
+      </div>
+    </section>
+    <section class="text-center space-y-6 card  bg-paper max-w-[32ch] mx-auto -mt-8 rotate-[0.5deg]">
+      <%= form_for @party, url: party_path do |f| %>
+        <div class="grid gap-4">
+          <% if @party.errors.any? %>
+            <div class="text-red-700 border border-current p-2" id="error_explanation">
+              <h4><%= pluralize(@party.errors.count, "error") %> prohibited this party from being saved:</h4>
+              <ul>
+                <% @party.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="rsvp-question text-emerald-800">
+            <%= f.label :rsvp, "Will you aid our quest?", class: "block text-lg font-bold italic tracking-tight -mt-1" %>
+            <div class="inline-block text-left mx-auto">
+              <%= f.label :rsvp_true, class: "block" do %>
+                <%= f.radio_button :rsvp, true, required: true %>
+                Accept the call
+              <% end %>
+              <%= f.label :rsvp_false, class: "block" do %>
+                <%= f.radio_button :rsvp, false, required: true %>
+                Regretfully decline
+              <% end %>
+            </div>
+          </div>
+          <%= f.fields_for :guests do |g| %>
+            <% if g.object.errors.any? %>
+              <div class="text-red-700 border border-current p-2">
+                <h4><%= pluralize(g.object.errors.count, "error") %> prevented this from submitting:</h4>
+                <ul>
+                  <% g.object.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <div class="flex flex-col boxed text-left">
+              <div class="field">
+                <%= g.label :name, "Your name" %>
+                <%= g.text_field :name, required: true %>
+              </div>
+              <div class="field border-t-0">
+                <%= g.label :email, "Your email" %>
+                <%= g.email_field :email, required: true %>
+              </div>
+            </div>
+
+            <p class="italic leading-tight">There will be space to add additional guests on the following page.</p>
+          <% end %>
+          <div class="text-center">
+            <%= f.submit "Next &rarr;".html_safe, class: "btn" %>
+          </div>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="bg-green-700 min-h-screen">
+  <div class="prose mx-auto card">
+    <h1><%= @guest.name %></h1>
+
+    <% if @current_user %>
+    <footer>
+        <%= link_to "Edit party", edit_party_path(@guest.party) %>
+    </footer>
+    <% else %>
+      <%= link_to "Sign In", guests_sign_in_url %>
+    <% end %>
+  </div>
+</div>

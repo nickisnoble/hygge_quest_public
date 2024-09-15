@@ -1,0 +1,10 @@
+<div class="space-y-6">
+  <%= link_to "Add a quest", new_dungeon_master_quest_path, class: "btn" %>
+  <div class="grid grid-ram gap-4" id="quests">
+    <% @quests.each do |quest| %>
+      <div class="card">
+        <%= render quest %>
+      </div>
+    <% end %>
+  </div>
+</div>

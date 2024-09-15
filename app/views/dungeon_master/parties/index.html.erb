@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-4 mt-2">
+  <%= render "stats", with: @attending %>
+
+  <% @parties.group_by(&:rsvp).each do |rsvp_status, parties| %>
+    <header>
+      <h2 class="w-full pt-4 italic font-bold">All <%= rsvp_status ? "Attending" : "Declined" %></h2>
+      <h3>Headcount: <%= parties.sum { |party| party.guests.count } %></h3>
+      <hr>
+    </header>
+
+    <%= render parties %>
+  <% end %>
+</div>

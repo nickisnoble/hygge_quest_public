@@ -1,0 +1,11 @@
+<%= turbo_frame_tag dom_id(guest), class: "col-span-full grid grid-cols-subgrid items-baseline py-1 border-b" do %>
+  <h4 class="font-bold"><%= guest.name %></h4>
+  <p><%= guest.party.name %></p>
+  <p class="capitalize"><%= guest.food_preference %></p>
+  <p><%= guest.guild.name %></p>
+  <p><%= guest.notes %></p>
+  <nav class="flex justify-end gap-2">
+    <%= link_to 'Edit', edit_dungeon_master_guest_path(guest), class: "text-indigo-600 hover:text-indigo-900" %>
+    <!-- <%= link_to 'Delete', guest, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-600 hover:text-red-900" %> -->
+  </nav>
+<% end %>

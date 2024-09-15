@@ -1,0 +1,10 @@
+<ul class="grid md:grid-cols-5 gap-6">
+  <% @guilds.each do |guild| %>
+    <li class="flex flex-col gap-4 text-center">
+      <%= link_to edit_dungeon_master_guild_path(guild), class: "contents" do %>
+        <%= image_tag(url_for(guild.icon), class: "size-24 mx-auto rounded-full guild-#{guild.name}") if guild.icon.present? %>
+        <h3><%= guild.name %></h3>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

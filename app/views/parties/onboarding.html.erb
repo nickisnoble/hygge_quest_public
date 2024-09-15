@@ -1,0 +1,85 @@
+<div class="bg-cover bg-[url('backgrounds/forest.jpg')] bg-fixed min-h-screen p-4 md:p-12 xl:p-20">
+  <div class="flex flex-col gap-12 max-w-screen-xl mx-auto relative z-10">
+    <% if @party.guests.include? current_user # don't confuse dungeon_masters %>
+      <section class="grid flex-col gap-4 card bg-paper max-w-screen-md odd:-rotate-[0.5deg] even:rotate-[0.5deg] even:self-end">
+        <div class="space-y-1 text-center">
+          <h2>There will be a glorious feast</h2>
+          <p>But in order to prepare, we must know what you would like to dine on:</p>
+        </div>
+        <%= form_for current_user, data: {
+            controller: "form",
+            action: "input->form#submit"
+          } do |f| %>
+          <div class="grid md:grid-cols-3 gap-1 *:px-1 italic">
+            <%= f.label :food_preference_vegetarian, class: "block max-sm:w-40 mx-auto text-center pt-1 px-1 has-[:checked]:bg-gold" do %>
+              <%= f.radio_button :food_preference, 'vegetarian', class: "sr-only peer" %>
+              <%= image_tag('food/vegetarian.jpg', alt: 'Vegetarian', title: 'Vegetarian', class: "rounded-sm border-[1.5px] border-amber-950/50" ) %>
+              <span class="peer-checked:text-white peer-checked:font-bold">Foraged</span>
+            <% end %>
+            <%= f.label :food_preference_duck, class: "block max-sm:w-40 mx-auto text-center pt-1 px-1 has-[:checked]:bg-gold" do %>
+              <%= f.radio_button :food_preference, 'duck', class: "sr-only peer" %>
+              <%= image_tag('food/duck.jpg', alt: 'Duck', title: 'Duck', class: "rounded-sm border-[1.5px] border-amber-950/50" ) %>
+              <span class="peer-checked:text-white peer-checked:font-bold">Fowl</span>
+            <% end %>
+            <%= f.label :food_preference_salmon, class: "block max-sm:w-40 mx-auto text-center pt-1 px-1 has-[:checked]:bg-gold" do %>
+              <%= f.radio_button :food_preference, 'salmon', class: "sr-only peer" %>
+              <%= image_tag('food/salmon.jpg', alt: 'Salmon', title: 'Salmon', class: "rounded-sm border-[1.5px] border-amber-950/50" ) %>
+              <span class="peer-checked:text-white peer-checked:font-bold">Fish</span>
+            <% end %>
+          </div>
+        <% end %>
+        <hr/>
+        <div class="md:grid grid-cols-3 gap-4 md:items-center max-w-md mx-auto">
+          <%= image_tag "food/tea-b.jpg", class: "max-md:float-left max-md:size-24 max-md:mr-2 max-size-48 aspect-square rounded border border-amber-950/50", alt: "An oil painting of a magical cup of black tea in a beautiful porcelain china teacup nestled in the underbrush of a fantasy forest." %>
+          <div class="space-y-1 col-span-2">
+            <p class="drop-cap"><strong>TEA</strong> will be served after the meal, along with cakes (including lovely gluten free items) and a few other surprises.</p>
+            <p>A full bar with custom cocktails will be available throughout the event.</p>
+          </div>
+        </div>
+      </section>
+      <section class="grid flex-col gap-4 card bg-paper max-w-screen-md odd:-rotate-[0.5deg] even:rotate-[0.5deg] even:self-end">
+        <div class="space-y-1 text-center">
+          <h2>There will be fantasy and merriment</h2>
+          <p>And so we ask, who will you become? Who are you <em>really</em>?</p>
+        </div>
+        <h3 class="text-center text-xl uppercase tracking-wide font-display font-bold">Join a guild</h3>
+        <%= form_for current_user, data: { controller: "form", action: "input->form#submit" } do |f| %>
+          <div class="grid gap-1 sm:grid-cols-3 lg:grid-cols-5">
+            <%= f.collection_radio_buttons :guild_id, Guild.where(secret: false), :id, :name do |g| %>
+              <div class="guild-<%= g.object.name %> p-2 border rounded-none sm:text-center">
+                <%= g.label(class: "max-sm:flex gap-4") do %>
+                  <%= g.radio_button(class: "sr-only peer") %>
+                  <%= image_tag(url_for(g.object.icon), class: "rounded-full size-20 sm:size-24 mx-auto") if g.object.icon.attached? %>
+                  <div class="mt-1">
+                    <h4 class="font-bold text-xl"><%= g.object.name %></h4>
+                    <p class="text-pretty text-sm leading-tight"><%= g.object.description %></p>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </section>
+    <% end %>
+    <section class="flex flex-col gap-4 card bg-paper max-w-screen-md odd:-rotate-[0.5deg] even:rotate-[0.5deg] even:self-end">
+      <div class="space-y-1 text-center">
+        <h2>Adventuring Party</h2>
+        <p>Your invitation may have been addressed to you or more. If you have additional guests, please add them that we may prepare for their arrival:</p>
+      </div>
+
+      <h4 class="border-b border-amber-800/20 mb-1">Other Party Members</h4>
+      <%= render @party, guests: @additional_guests %>
+
+      <%= form_for @party do |f| %>
+        <div class="field">
+          <%= f.label :notes, "Additional Notes" %>
+          <%= f.text_area :notes, rows: 6, placeholder: "Please let us know anything additional, such as allergies or special accomodations, your party may need to join our adventure." %>
+        </div>
+        <% if @party.errors.any? %>
+          <p class="text-red-700"><%= @party.errors.full_messages.to_sentence %></p>
+        <% end %>
+        <%= f.submit "Submit RSVP!", class: "text-lg btn primary mt-2 float-right" %>
+      <% end %>
+    </section>
+  </div>
+</div>

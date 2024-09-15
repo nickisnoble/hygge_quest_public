@@ -1,0 +1,44 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+nick:
+  name: Nick
+  email: groom@example.com
+  food_preference: 1
+  guild: myst
+  dungeon_master: true
+  party: one
+
+marnie:
+  name: Marnie
+  email: bride@example.com
+  food_preference: 1
+  guild: haven
+  dungeon_master: true
+  party: one
+
+kermit:
+  name: Kermit the Frog
+  email: kermit@muppets.com
+  food_preference: 2
+  guild: myst
+  dungeon_master: false
+  party: two
+
+ms_piggy:
+  name: Ms. Piggy
+  food_preference: 3
+  guild: athletica
+  dungeon_master: false
+  party: two
+
+elmo:
+  name: Elmo
+  food_preference: 1
+  guild: reverie
+  under_13: true
+  party: two
+
+fozzy:
+  name: Fozzy Bear
+  email: fozzy@muppets.com
+  party: three

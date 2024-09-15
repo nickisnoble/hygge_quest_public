@@ -1,0 +1,12 @@
+Dear <%= @guest.name %>,
+
+<%= @mailing.body.to_plain_text %>
+
+(Feel free to reply and I’ll pass your messages along to Marnie & Nick)
+
+—
+Helpful links:
+- Your Adventuring Party: <%= party_url %>
+- All Guilds: <%= guilds_url %>
+- Registry: <%= registry_url %>
+- Map: <%= map_url %>

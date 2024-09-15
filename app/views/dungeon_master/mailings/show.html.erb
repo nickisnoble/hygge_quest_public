@@ -1,0 +1,10 @@
+<div class="p-2 space-y-4 border border-black/20 bg-white/80 shadow rounded-lg">
+  <aside class="text-xs font-mono bg-emerald-950 text-emerald-200 p-1 rounded">
+    <p class="font-bold mb-1">Subject: <%= @mailing.subject %></p>
+    <p>Sent on <%= @mailing.created_at.strftime("%Y-%m-%d") %> to:<br/><%= @mailing.guests.sort_by(&:name).map(&:name).join(', ') %></p>
+  </aside>
+
+  <div class="prose max-w-full prose-emerald p-4 shadow-inner">
+    <%= @mailing.body %>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+Name, Email, Party, Guild, Food Preference, Notes
+<%=
+CSV.generate do |csv|
+  @guests.each do |guest|
+    csv << [ guest[:name], guest[:email], guest.party[:name], guest.guild[:name], guest[:food_preference], guest[:notes] ]
+  end
+end.html_safe
+%>

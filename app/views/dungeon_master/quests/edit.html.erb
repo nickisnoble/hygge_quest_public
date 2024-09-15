@@ -1,0 +1,27 @@
+<%= turbo_frame_tag dom_id(@quest) do %>
+  <%= form_with(model: [:dungeon_master, @quest]) do |form| %>
+    <div class="boxed">
+      <div class="field">
+        <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :title, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      </div>
+      <div class="field">
+        <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_area :description, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <%= form.label :xp, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.number_field :xp, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        </div>
+        <div class="field">
+          <%= form.label :reward, class: "block text-sm font-medium text-gray-700" %>
+          <%= form.text_field :reward, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <%= form.submit "Update Quest", class: "btn primary mt-2 float-right" %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,21 @@
+<%= form_with(model: [:dungeon_master, @mailing], class: "space-y-4") do |form| %>
+  <div class="field">
+    <%= form.label :subject %>
+    <%= form.text_field :subject, autocomplete: "off" %>
+  </div>
+  <div class="field">
+    <div class="prose max-w-full">
+      <h4>Dear Guest,</h4>
+      <%= form.rich_text_area :body %>
+    </div>
+  </div>
+  <div class="grid gap-1">
+    <% Guest.attending.each do |guest| %>
+      <div class="flex gap-2">
+        <%= form.check_box :guest_ids, { multiple: true }, guest.id, nil %>
+        <%= form.label :guest_ids, guest.name, value: guest.id %>
+      </div>
+    <% end %>
+  </div>
+  <%= form.submit class: "btn primary" %>
+<% end %>

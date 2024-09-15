@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+athletica:
+  name: Athletica
+  description: Champions in the relentless pursuit of excellence, we safeguard others through greatness in heart, mind, and body.
+  slug: athletica
+  secret: false
+
+galanis:
+  name: Galanis
+  description: Connectivity and influence is our currency, mastering the art of the network and charisma refined. We know everyone.
+  slug: galanis
+  secret: false
+
+haven:
+  name: Haven
+  description: Our sancuary offers a solace from a changing world. We provide healing and comfort, nurturing all with wisdom and care.
+  slug: haven
+  secret: false
+
+myst:
+  name: Myst
+  description: Masters of the unknown, there is no machine nor manual that can keep knowedge hidden from the Myst.
+  slug: myst
+  secret: false
+
+reverie:
+  name: Reverie
+  description: Keepers of stories, weavers of tales, we love a great time with friends and good cheer.
+  slug: reverie
+  secret: false

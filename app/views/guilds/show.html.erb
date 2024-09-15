@@ -1,0 +1,21 @@
+<article class="min-h-screen p-4 text-center">
+  <%= image_tag(url_for(@guild.background), class: "fixed inset-0 h-screen w-screen object-cover -z-10") if @guild.background.attached? %>
+  <div class="flex max-sm:flex-col max-sm:mt-60 justify-center max-w-screen-lg mx-auto gap-4">
+    <div class="sticky -top-2 flex sm:flex-col max-sm:text-left gap-4 card h-min sm:w-max max-sm:mx-auto">
+      <%= image_tag(url_for(@guild.icon), class: "size-24 sm:size-48 aspect-1 mx-auto rounded-full") if @guild.icon.present? %>
+      <div class="flex-1">
+        <h1 class="m-0"><%= @guild.name %></h1>
+        <p class="text-balance sm:max-w-[24ch]"><%= @guild.description %></p>
+      </div>
+    </div>
+    <% if @guild.looks.any? %>
+      <ul class="basis-2/3 space-y-2">
+        <% @guild.looks.shuffle.each do |look| %>
+          <li class="w-full">
+            <%= image_tag url_for( look ), class: "w-full" %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</article>

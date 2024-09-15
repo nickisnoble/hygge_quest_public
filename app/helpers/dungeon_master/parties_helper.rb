@@ -1,0 +1,2 @@
+module DungeonMaster::PartiesHelper
+end

@@ -1,0 +1,20 @@
+<div class="bg-cover bg-[url('backgrounds/forest.jpg')] bg-fixed min-h-screen p-4 md:p-12 xl:p-20">
+  <%= form_for @party, data: { turbo_frame: "_top" } do |f| %>
+    <section class="grid">
+      <div class="mx-auto card bg-paper max-w-screen-sm w-full space-y-4">
+        <div class="space-y-1">
+          <h2>We will miss you!</h2>
+          <p>Your presence will be missed, but we understand and appreciate your response.</p>
+        </div>
+        <div class="field">
+          <%= f.label :notes, "Optional" %>
+          <%= f.text_area :notes, rows: 6, placeholder: "Send a message to Nick & Marnie" %>
+        </div>
+        <div class="flex max-sm:flex-col gap-4 justify-between items-baseline">
+          <%= f.submit "Send message", class: "btn primary max-sm:self-stretch" %>
+          <%= render "shared/quick_links" %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+</div>

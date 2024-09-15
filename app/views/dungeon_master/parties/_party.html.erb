@@ -1,0 +1,22 @@
+<%= turbo_frame_tag dom_id(party) do %>
+  <div class="grid md:grid-cols-3 gap-2 p-2 border-b bg-paper">
+    <div class="flex flex-col justify-between gap-2">
+      <header>
+        <h3><%= party.name %></h3>
+        <div class="text-xs not-italic opacity-40 font-mono">
+          <p>ID: <%= party.id %></p>
+          <p>Deadline: <%= party.response_deadline&.strftime('%B %d') %></p>
+        </div>
+      </header>
+      <p class="font-hand text-emerald-900">
+        <%= party.notes %>
+      </p>
+      <%= link_to "Edit", edit_dungeon_master_party_path(party), class: "text-xs mt-1 opacity-80 font-mono hover:opacity-100" %>
+    </div>
+    <div class="col-span-2">
+      <%= turbo_frame_tag "#{dom_id(party)}_guests" do %>
+        <%= render partial: 'guests/guest', collection: party.guests %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
