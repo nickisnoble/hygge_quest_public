@@ -1,10 +1,7 @@
 # README
 
 This is a time capsule of the app I made for my wedding in 2024.
-
-![onboarding](https://github.com/user-attachments/assets/a111ff74-2cde-4c6a-805a-a476f46fbae7)
-
-
+![home](https://github.com/user-attachments/assets/34da8aab-f890-491e-b104-721f12651480)
 
 ### I built it because:
 
@@ -39,6 +36,8 @@ Our wedding was fantasy TTRPG themed. Think Dungeons & Dragons, The Princess Bri
 Many of our guests were familiar, but some we knew would feel a little like fish out of water. We wanted to recreate and share some of the magic of playing these games (which is how we met) for people who maybe never played, and make our guests feel welcome.
 
 So this site was a way to get the information we needed, but also start seeding "the vibes" early on.
+
+![onboarding](https://github.com/user-attachments/assets/a111ff74-2cde-4c6a-805a-a476f46fbae7)
 
 ### Guilds
 
