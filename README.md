@@ -2,6 +2,10 @@
 
 This is a time capsule of the app I made for my wedding in 2024.
 
+![onboarding](https://github.com/user-attachments/assets/a111ff74-2cde-4c6a-805a-a476f46fbae7)
+
+
+
 ### I built it because:
 
 1. Most wedding website builders suck, and none of them had the features I wanted.
@@ -15,7 +19,9 @@ There's more on each point below, but that's the gist. But first...
 >
 > This was made by a nerd, for a nerdy wedding.
 >
-> It has no intention of being a polished product, nor even a "good" one, past what it was made for – because it was always intended to be short lived. There are minimal tests, the code is often strange or fast, and 99% of the content is written in HTML.
+> It has no intention of being a polished product, nor even a "good" one, past what it was made for – because it was always intended to be short lived. 
+>
+> There are minimal tests, the code is often [strange](https://github.com/nickisnoble/hygge_quest_public/blob/41d8ecc0b4a52a8232d601111f67dc5afa103fd8/app/controllers/concerns/dungeon_master/cerberus.rb#L1-L9) or hastily written, and 99% of the content is written in HTML.
 >
 > But in the end, it ended up being useful, and unique. I really like how it looked and worked, and showing it to people, they say it could be quite useful to others.
 >
@@ -44,6 +50,9 @@ Guilds also helped with clothing, since we asked people to dress up – for folk
 
 You'll see in the app that there's apparatus for "looks" aka inspiration we pulled / generated for various fashion ideas, matching the colors and themes of each guild. It wasn't a costume party per se, we just wanted to do something different than regular suits and dresses.
 
+![Guild-edit](https://github.com/user-attachments/assets/48bb172b-ce44-4f25-8ee9-02b3b225d6b2)
+
+
 ### Parties
 
 > [!NOTE]
@@ -59,6 +68,9 @@ You'll see in the app that there's apparatus for "looks" aka inspiration we pull
 > And even worse, most of these services (like Zola, etc) are designed to extract and sell not just your data, but your guests' data, to marketers. I wasn't interested in selling my guests personal info for the sake of having a "free" wedding website, with inferior features, and a basic bitch aesthetic.
 
 For most people, when they get an RSVP in the mail, there's someone in the family who's the calendar keeper, and they want to just handle it! They know their kid can't eat gluten, the other is away at college and can't make it, and their spouse wants the steak, not the chicken.
+
+![party](https://github.com/user-attachments/assets/3bc29536-940c-4f2a-aaa3-7fcf130b0be0)
+
 
 #### So our app works like that:
 
@@ -80,10 +92,16 @@ Everything on that page autosaves, and if someone tries to RSVP again, it just r
 - Admin view including crud for guests, the ability to send said emails, and basic stats, eg total guests, breakdown by attending, total count of each meal option, etc.
 - Map view, automatically drops markers based on address (uses geocoder to get lat/lng).
 
+![Screenshot — Arc  Arc  — 2024-04-29  0446PM](https://github.com/user-attachments/assets/1456ad5a-07ed-4c2f-83f6-31393387662e)
+
+
 ### Unimplemented
 These were features I wanted to add, but didn't have time to finish before the wedding:
 - A "quest" system for guests to complete before the wedding, allowing them to earn XP and achievements. (Sort of a fun way to identify things to do in Baltimore for guests arriving early, or sightseeing in the area). This was simplified to just a map view, with a few locations marked.
 - A full PWA experience, with photo modes, etc. (You *can* install the app, but all it is currently is a custom icon and caching.)
+
+![Screenshot — Arc  Arc  — 2024-04-05  0403PM](https://github.com/user-attachments/assets/bd5ecb60-981c-4283-bcb0-b8a226e65958)
+
 
 > [!CAUTION]
 > ## A note on images and licensing
@@ -94,7 +112,11 @@ These were features I wanted to add, but didn't have time to finish before the w
 > - **Fashion / character images** on the guild pages were mostly generated with [Lexica](https://lexica.art/).
 > - Open Graph images were made using a combination of the above and Figma.
 >
-> ## **The lantern / seal is not free to use, nor is it included under any license with the software. That is ours!**
+
+## **The lantern / seal is not free to use, nor is it included under any license with the software. That is ours!**
+
+<div style="display: flex; gap: 24px; height: 100px;"><img style="max-height: 64px; width: auto;" src="https://github.com/user-attachments/assets/d2455ac4-9423-457e-8273-c5a77ce6931f" alt="seal" /><img style="max-height: 64px; width: auto;" src="https://github.com/user-attachments/assets/1262a915-44e9-4fdc-92a0-a59650e589dc" alt="seal-wax" /></div>
+
 
 ---
 
