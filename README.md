@@ -18,7 +18,8 @@ There's more on each point below, but that's the gist. But first...
 >
 > It has no intention of being a polished product, nor even a "good" one, past what it was made for – because it was always intended to be short lived. 
 >
-> There are minimal tests, the code is often [strange](https://github.com/nickisnoble/hygge_quest_public/blob/41d8ecc0b4a52a8232d601111f67dc5afa103fd8/app/controllers/concerns/dungeon_master/cerberus.rb#L1-L9) or hastily written, and 99% of the content is written in HTML.
+> There are minimal tests, the code is often strange or hastily written, and 99% of the content is written in HTML.
+> https://github.com/nickisnoble/hygge_quest_public/blob/41d8ecc0b4a52a8232d601111f67dc5afa103fd8/app/controllers/concerns/dungeon_master/cerberus.rb#L1-L9
 >
 > But in the end, it ended up being useful, and unique. I really like how it looked and worked, and showing it to people, they say it could be quite useful to others.
 >
@@ -103,18 +104,19 @@ These were features I wanted to add, but didn't have time to finish before the w
 
 
 > [!CAUTION]
-> ## A note on images and licensing
+> ## LICENSING
+> 
+> You'll note there's no license on this repo.
 >
-> Most of the images on the site were generated with AI, and I'm not sure what license they're under. If you use this site as a template for your own, you should replace them!
+> TL;DR: I didn't know what license to use for what I wanted.
 >
-> - **Background images** were generated with Dalle, using a [custom GPT](https://chatgpt.com/g/g-bb0WtJcAD-botanical-fantasy-creator) for consistency. (Feel free to use it if you'd like!)
-> - **Fashion / character images** on the guild pages were mostly generated with [Lexica](https://lexica.art/).
-> - Open Graph images were made using a combination of the above and Figma.
->
-
-## **The lantern / seal is not free to use, nor is it included under any license with the software. That is ours!**
-
-<div style="display: flex; gap: 24px; height: 100px;"><img style="max-height: 64px; width: auto;" src="https://github.com/user-attachments/assets/d2455ac4-9423-457e-8273-c5a77ce6931f" alt="seal" /><img style="max-height: 64px; width: auto;" src="https://github.com/user-attachments/assets/1262a915-44e9-4fdc-92a0-a59650e589dc" alt="seal-wax" /></div>
+> - You can use or learn from this code to build a site for yourself or a friend's wedding
+> - You cannot fork this into a commercial product.
+> - Most of the images on the site were generated with AI, and I'm not sure what license they're under. If you use this site as a template for your own, you *must* replace them! Said another way, feel free to use the code, but content must be replaced.
+>   - **Background images** were generated with Dalle, using a [custom GPT](https://chatgpt.com/g/g-bb0WtJcAD-botanical-fantasy-creator) for consistency. (Feel free to use it if you'd like!)
+>   - **Fashion / character images** on the guild pages were mostly generated with [Lexica](https://lexica.art/). (Stored in S3 anyways)
+>   - Open Graph images were made using a combination of the above and Figma.
+>   - *The [lantern / seal](https://github.com/user-attachments/assets/1262a915-44e9-4fdc-92a0-a59650e589dc) is not included under any license with the software. That is ours!*
 
 
 ---
