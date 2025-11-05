@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html class="scroll-p-6 scroll-smooth focus:scroll-auto">
   <head>
-    <title>DM SCREEN</title>
+    <title>Admin Panel</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="robots" content="noindex">
     <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "lexxy", "data-turbo-track": "reload" %>
     <%= favicon_link_tag asset_path('favicon.png') %>
     <%= javascript_importmap_tags %>
   </head>
@@ -21,8 +21,9 @@
           <div class="flex gap-2">
             <%= link_to "Guests", admin_root_path, class: "underline hover:decoration-dotted" %>
             <%= link_to "Parties", admin_parties_path, class: "underline hover:decoration-dotted" %>
-            <%= link_to "Scrolls", admin_mailings_path, class: "underline hover:decoration-dotted" %>
-            <%= link_to "Guilds", admin_guilds_path, class: "underline hover:decoration-dotted" %>
+            <%= link_to "Emails", admin_mailings_path, class: "underline hover:decoration-dotted" %>
+            <%= link_to "Groups", admin_groups_path, class: "underline hover:decoration-dotted" %>
+            <%= link_to "Pages", admin_pages_path, class: "underline hover:decoration-dotted" %>
             <%= link_to "Locations", admin_locations_path, class: "underline hover:decoration-dotted" %>
           </div>
           <div class="ml-auto">

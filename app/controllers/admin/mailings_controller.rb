@@ -66,6 +66,6 @@ class Admin::MailingsController < ApplicationController
   private
 
   def mailing_params
-    params.require(:mailing).permit(:subject, :body, guest_ids: [], group_ids: [])
+    params.require(:mailing).permit(:subject, :body, guest_ids: [])
   end
 end
