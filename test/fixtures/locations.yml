@@ -1,17 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
-  address: MyString
-  latitude: 1.5
-  longitude: 1.5
-  category: MyString
+ceremony:
+  name: Ceremony Venue
+  description: Where we'll exchange our vows
+  address: 123 Main St, City, State 12345
+  latitude: 40.7128
+  longitude: -74.0060
+  icon: church
+  is_key: true
 
-two:
-  name: MyString
-  description: MyText
-  address: MyString
-  latitude: 1.5
-  longitude: 1.5
-  category: MyString
+reception:
+  name: Reception Hall
+  description: Join us for dinner and dancing
+  address: 456 Oak Ave, City, State 12345
+  latitude: 40.7580
+  longitude: -73.9855
+  icon: party
+  is_key: true

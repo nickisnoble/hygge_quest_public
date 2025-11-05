@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+family:
+  name: Family
+  description: Immediate family members and close relatives
+
+friends:
+  name: Friends
+  description: Close friends and long-time companions
+
+coworkers:
+  name: Coworkers
+  description: Current and former colleagues
+
+college:
+  name: College Friends
+  description: Friends from university days
+
+other:
+  name: Other Guests
+  description: Extended network and acquaintances

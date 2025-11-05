@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class DungeonMasterTest < ApplicationSystemTestCase
+class AdminTest < ApplicationSystemTestCase
   setup do
     @user = {
       name: "Tramplesauce",
@@ -8,8 +8,8 @@ class DungeonMasterTest < ApplicationSystemTestCase
     }
   end
 
-  test "cannot access dm screen" do
-    visit dungeon_master_root_path
+  test "cannot access admin screen" do
+    visit admin_root_path
     assert_current_path guests_sign_in_path
   end
 end

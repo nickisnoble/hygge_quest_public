@@ -4,37 +4,37 @@ nick:
   name: Nick
   email: groom@example.com
   food_preference: 1
-  guild: myst
-  dungeon_master: true
+  group: family
+  admin: true
   party: one
 
 marnie:
   name: Marnie
   email: bride@example.com
   food_preference: 1
-  guild: haven
-  dungeon_master: true
+  group: family
+  admin: true
   party: one
 
 kermit:
   name: Kermit the Frog
   email: kermit@muppets.com
   food_preference: 2
-  guild: myst
-  dungeon_master: false
+  group: friends
+  admin: false
   party: two
 
 ms_piggy:
   name: Ms. Piggy
   food_preference: 3
-  guild: athletica
-  dungeon_master: false
+  group: friends
+  admin: false
   party: two
 
 elmo:
   name: Elmo
   food_preference: 1
-  guild: reverie
+  group: college
   under_13: true
   party: two
 
