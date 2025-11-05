@@ -1,169 +1,172 @@
-# README
+# Wedding RSVP Platform
 
-This is a time capsule of the app I made for my wedding in 2024.
-![home](https://github.com/user-attachments/assets/34da8aab-f890-491e-b104-721f12651480)
+A clean, modern Rails application for managing wedding RSVPs and guest communications.
 
-### I built it because:
+## Features
 
-1. Most wedding website builders suck, and none of them had the features I wanted.
-2. It was a themed wedding, and the RSVP flow was the first impression of it guests would see.
-3. I wanted to.
+### Guest-Facing
+- **Passwordless Authentication** - No signup required, guests login via email link
+- **Party Management** - One person can RSVP for their entire group
+- **Meal Selection** - Visual meal preference selection with images
+- **Flexible RSVP Flow** - Different flows for accepting vs. declining
+- **Auto-Save** - All changes save automatically
+- **Staggered Deadlines** - Automatically locks changes at response deadline
+- **Dynamic Pages** - Content pages (registry, travel info) managed through admin
 
-There's more on each point below, but that's the gist. But first...
+### Admin Features
+- **Guest List Management** - Full CRUD for guests and parties
+- **Email Broadcasting** - Send emails to individuals or entire groups
+- **Group Organization** - Organize guests into groups (family, wedding party, etc.)
+- **Statistics Dashboard** - View RSVPs, meal counts, and guest breakdown
+- **Page Management** - Create and edit content pages without code changes
+- **Location Management** - Add locations with automatic map markers
+- **CSV Export** - Download guest list with all details
 
-> [!WARNING]
-> ### There be dragons here
->
-> This was made by a nerd, for a nerdy wedding.
->
-> It has no intention of being a polished product, nor even a "good" one, past what it was made for – because it was always intended to be short lived. 
->
-> There are minimal tests, the code is often strange or hastily written, and 99% of the content is written in HTML.
-> https://github.com/nickisnoble/hygge_quest_public/blob/41d8ecc0b4a52a8232d601111f67dc5afa103fd8/app/controllers/concerns/dungeon_master/cerberus.rb#L1-L9
->
-> But in the end, it ended up being useful, and unique. I really like how it looked and worked, and showing it to people, they say it could be quite useful to others.
->
-> #### I'm sharing it with you for three reasons:
->
-> 1. I want to show it off, even the rough bits!
-> 2. In case it's useful for your own nerdy wedding. Feel free to use it as a base, and *expect* to rip out the parts you don't need.
-> 3. To demonstrate that homecooked software can be useful, even if it's just for your friends and family, and just for a short time.
+## Tech Stack
 
+- **Rails 7.1** with Ruby 3.2.2
+- **SQLite** - Perfect for wedding-sized datasets, easy to archive
+- **Tailwind CSS** - Clean, modern styling with system fonts
+- **Hotwire/Turbo/Stimulus** - Modern JavaScript for dynamic interactions
+- **ActionText** - Rich text editing for pages and emails
+- **Active Storage + S3** - File uploads for food images
+- **Resend** - Transactional email delivery
+- **Passwordless** - Email-based authentication
+- **Geocoder** - Location mapping via OpenStreetMap
 
-# Design & functionality
+## Getting Started
 
-Our wedding was fantasy TTRPG themed. Think Dungeons & Dragons, The Princess Bride, Game of Thrones, Zelda. We also wanted everyone to dress up and feel like they were part of our story.
+### Local Development
 
-Many of our guests were familiar, but some we knew would feel a little like fish out of water. We wanted to recreate and share some of the magic of playing these games (which is how we met) for people who maybe never played, and make our guests feel welcome.
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   bundle install
+   ```
+3. Set up the database:
+   ```bash
+   bundle exec rails db:migrate
+   bundle exec rails db:seed
+   ```
+4. Start the development server:
+   ```bash
+   ./bin/dev
+   ```
 
-So this site was a way to get the information we needed, but also start seeding "the vibes" early on.
+### Configuration
 
-![onboarding](https://github.com/user-attachments/assets/a111ff74-2cde-4c6a-805a-a476f46fbae7)
+Copy `.env.example` to `.env` and configure:
 
-### Guilds
+```env
+HOSTNAME=yoursite.com
+DEFAULT_FROM_EMAIL=couple@yoursite.com
+RESEND_API_KEY=your_resend_api_key
+```
 
-So in addition to the normal RSVP stuff, like food preferences, we asked people to choose a "guild".
+### Deployment
 
-This is somewhere between a D&D class, a Hogwarts house, or an Astrological sign – something anyone can grok immeditiately, feels somewhat authentic to themselves, but gives the feeling of being part of a larger fantasy world.
+This application is designed to run on Render.com with SQLite:
 
-Guilds also helped with clothing, since we asked people to dress up – for folks who'd never been to renn faires or comic cons, this was a way of helping them not have to start from scratch.
+1. Push to GitHub
+2. Create a new Web Service on Render
+3. Configure environment variables
+4. Add a disk for SQLite storage
+5. Use these build/start commands:
 
-You'll see in the app that there's apparatus for "looks" aka inspiration we pulled / generated for various fashion ideas, matching the colors and themes of each guild. It wasn't a costume party per se, we just wanted to do something different than regular suits and dresses.
+**Build Command:**
+```bash
+bundle install; bundle exec rake assets:precompile; bundle exec rake assets:clean;
+```
 
-![Guild-edit](https://github.com/user-attachments/assets/48bb172b-ce44-4f25-8ee9-02b3b225d6b2)
+**Start Command:**
+```bash
+bundle exec rails db:migrate; bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-production}
+```
 
+Note: Migrations run on start (not build) because SQLite file isn't available until the disk mounts.
 
-### Parties
+## Customization
 
-> [!NOTE]
-> The big thing I found lacking in almost all wedding websites is a way to manage one's group of guests.
->
-> #### What we found was some combination of:
->
-> - A guest list that's just a list, like a spreadsheet, but in a shitty CMS, and you can't control the fields.
-> - As a guest, you put in your own name, but everyone else is listed as "plus one" or "guest", and details like allergies need to be stuffed awkwardly into one text field.
-> - Every guest needs to have a login (because evil data extraction), and enter their own data, one person can't simply RSVP for their family.
-> - If you want to decline the RSVP, you have to enter a ton of info anyways.
->
-> And even worse, most of these services (like Zola, etc) are designed to extract and sell not just your data, but your guests' data, to marketers. I wasn't interested in selling my guests personal info for the sake of having a "free" wedding website, with inferior features, and a basic bitch aesthetic.
+### Seed Data
 
-For most people, when they get an RSVP in the mail, there's someone in the family who's the calendar keeper, and they want to just handle it! They know their kid can't eat gluten, the other is away at college and can't make it, and their spouse wants the steak, not the chicken.
+Update `db/seeds.rb` with your details:
+- Change couple names and emails
+- Update group names (Wedding Party, Family, Friends, etc.)
+- Customize the registry page content
 
-![party](https://github.com/user-attachments/assets/3bc29536-940c-4f2a-aaa3-7fcf130b0be0)
+### Branding
 
+- Update `app/views/parties/new.html.erb` with your names and date
+- Replace food images in `app/assets/images/food/`
+- Update favicon and app icon
+- Create custom Open Graph images for social sharing
 
-#### So our app works like that:
+### Pages
 
-1. One person can RSVP for their entire party, and it happens automatically (a party is created for them on the initial RSVP).
-2. If they RSVP yes (for the group), they make their own choices with a large UI, so that they get very familiar with the options. Then they can add everyone else with a quick entry UI, and anyone with an email address in the system now can login themselves and make changes later if they want. [^1]
-4. If they RSVP no (for the group), we know who they are and can infer their family isn't going. They get a field to leave a note, that's it, no need to enter everyone else.
+Admins can create custom pages through the admin panel:
+1. Log in as an admin
+2. Go to Admin Dashboard → Pages
+3. Create pages for: registry, travel info, accommodations, schedule, etc.
+4. Pages are accessible at `yoursite.com/page-slug`
 
-[^1]: Children under 13 don't have an email field.
+## Architecture Decisions
 
-Everything on that page autosaves, and if someone tries to RSVP again, it just redirects them to the step they were on.
+### Why SQLite?
 
-## Actual Features
+For a wedding app with ~100-200 guests:
+- Fast and simple
+- Zero operational overhead
+- Easy to backup and archive
+- Perfect for time-limited applications
 
-- Automagic login. No inital sign-up, "it just works."
-- Not every guest needs to have a login. Party members can manage other members of the same party.
-- Staggered deadlines for waves of RSVPs, automatically locks changes for parties at deadline.
-- Private and shared notes for hosts for each party and guest.
-- Email broadcast system for hosts to send to guests, in part or in whole.
-- Admin view including crud for guests, the ability to send said emails, and basic stats, eg total guests, breakdown by attending, total count of each meal option, etc.
-- Map view, automatically drops markers based on address (uses geocoder to get lat/lng).
+### Party-Based RSVPs
 
-![Screenshot — Arc  Arc  — 2024-04-29  0446PM](https://github.com/user-attachments/assets/1456ad5a-07ed-4c2f-83f6-31393387662e)
+Rather than individual RSVPs:
+- One person manages their entire group
+- Reduces friction (matches how people actually RSVP)
+- Optional individual logins for party members
+- Notes and preferences handled together
 
+### Groups (Admin Only)
 
-### Unimplemented
-These were features I wanted to add, but didn't have time to finish before the wedding:
-- A "quest" system for guests to complete before the wedding, allowing them to earn XP and achievements. (Sort of a fun way to identify things to do in Baltimore for guests arriving early, or sightseeing in the area). This was simplified to just a map view, with a few locations marked.
-- A full PWA experience, with photo modes, etc. (You *can* install the app, but all it is currently is a custom icon and caching.)
+Groups help organize guests but aren't visible publicly:
+- Useful for seating arrangements
+- Email targeting (send to "Wedding Party" or "Out of town guests")
+- Not part of guest experience
 
-![Screenshot — Arc  Arc  — 2024-04-05  0403PM](https://github.com/user-attachments/assets/bd5ecb60-981c-4283-bcb0-b8a226e65958)
+## Development Notes
 
+### Rails Conventions
 
-> [!CAUTION]
-> ## LICENSING
-> 
-> You'll note there's no license on this repo.
->
-> TL;DR: I didn't know what license to use for what I wanted.
->
-> - You can use or learn from this code to build a site for yourself or a friend's wedding
-> - You cannot fork this into a commercial product.
-> - Most of the images on the site were generated with AI, and I'm not sure what license they're under. If you use this site as a template for your own, you *must* replace them! Said another way, feel free to use the code, but content must be replaced.
->   - **Background images** were generated with Dalle, using a [custom GPT](https://chatgpt.com/g/g-bb0WtJcAD-botanical-fantasy-creator) for consistency. (Feel free to use it if you'd like!)
->   - **Fashion / character images** on the guild pages were mostly generated with [Lexica](https://lexica.art/). (Stored in S3 anyways)
->   - Open Graph images were made using a combination of the above and Figma.
->   - *The [lantern / seal](https://github.com/user-attachments/assets/1262a915-44e9-4fdc-92a0-a59650e589dc) is not included under any license with the software. That is ours!*
+- Domain logic lives in models
+- Controllers are thin
+- No service objects unless truly needed
+- 37signals-style PORO when appropriate
 
+### Styling
 
----
+- System fonts (serif for elegance, sans-serif for UI)
+- Tailwind utility classes
+- Minimal custom CSS
+- Clean, professional design
+- Easy to customize colors and typography
 
-# Technical Notes
+## License
 
-This is a Rails app, with this general stack:
-- Rails 7.1
-- SQLite for database (see below for why!)
-- TailwindCSS for styling
-- Hotwire / Turbo / Stimulus for frontend interactivity
-- ActiveStorage + S3 for file uploads (minimal)
-- Resend for email
-- Passwordless for login
-- Leaflet for mapping, FontAwesome for icons, both client-side only
-- Render for hosting
+This code is provided for personal use only. You may:
+- Use it for your own wedding or a friend's wedding
+- Learn from and modify the code
+- Host it for personal events
 
-### SQLite?!
+You may NOT:
+- Create a commercial product from this code
+- Sell this as a service
+- Redistribute without permission
 
-This is the nice thing about a wedding app: you know exactly how many guests you have, and the days when you'll have the most traffic. At maximum, this app had 120 users (though many fewer on any given day, and not everyone responds when you send out RSVPs).
+**Images**: Replace all food images and assets with your own. The included images are examples only.
 
-SQLite is fast and easy, but better yet, it's a file that I can archive – a perfect time capsule for the data from our wedding.
+## Credits
 
-## Running the app
+Originally created as a fantasy-themed wedding app, refactored into a generic platform suitable for any wedding.
 
-### Locally
-1. Clone the repo
-2. `$ bundle install`
-3. `$ bundle exec rails db:migrate`
-4. `$ bundle exec rails db:seed` (You'll want to adjust the seed data to make you and your partner the hosts)
-5. `$ ./bin/dev`
-
-### On Render.com
-
-1. Push the repo to github
-2. Configure a render project for it
-3. Set the environment variables (see `.env.example`)
-4. Add a disk for sqlite *(see SQLite note above and start command below. This creates some limitations around deploys, but it's way cheaper than a Postgres instance)*
-5. Deploy via push!
-
-> [!WARNING]
-> **This is from memory**
-> So it may not be exactly right, consult the render docs or get in touch if you need help.
-
-#### Settings
-
-- **Build Command**: `$ bundle install; bundle exec rake assets:precompile; bundle exec rake assets:clean;`
-- **Start Command**: `$ bundle exec rails db:migrate; bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-production}`
-
-Note migration done on *start* is weird, usually you'd do it at build. But since this app uses SQLite, which is literally a file on the disk, it's not accessible until it boots.
+Built with ❤️ using Rails.
