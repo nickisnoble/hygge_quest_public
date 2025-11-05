@@ -1,0 +1,45 @@
+<div class="flex justify-between items-center mb-6">
+  <h1>Pages</h1>
+  <%= link_to "New Page", new_admin_page_path, class: "btn primary" %>
+</div>
+
+<div class="card">
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th class="text-left">Title</th>
+        <th class="text-left">Slug</th>
+        <th class="text-left">Status</th>
+        <th class="text-left">Updated</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pages.each do |page| %>
+        <tr class="border-b border-gray-200">
+          <td class="py-2"><%= page.title %></td>
+          <td class="py-2"><code class="text-sm text-gray-600">/<%= page.slug %></code></td>
+          <td class="py-2">
+            <% if page.published? %>
+              <span class="text-green-600 text-sm">Published</span>
+            <% else %>
+              <span class="text-gray-500 text-sm">Draft</span>
+            <% end %>
+          </td>
+          <td class="py-2 text-sm text-gray-600"><%= page.updated_at.strftime("%b %d, %Y") %></td>
+          <td class="py-2 text-right space-x-2">
+            <%= link_to "View", page_path(page.slug), target: "_blank", class: "text-blue-600 hover:underline text-sm" %>
+            <%= link_to "Edit", edit_admin_page_path(page), class: "text-blue-600 hover:underline text-sm" %>
+            <%= button_to "Delete", admin_page_path(page), method: :delete,
+                data: { confirm: "Are you sure you want to delete this page?" },
+                class: "text-red-600 hover:underline inline text-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @pages.empty? %>
+    <p class="text-gray-500 text-center py-8">No pages yet. Create your first page!</p>
+  <% end %>
+</div>

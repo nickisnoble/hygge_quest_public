@@ -89,4 +89,20 @@ if Rails.env.development?
       })
     ]
   )
+
+  # Create sample registry page
+  Page.find_or_create_by!(slug: "registry") do |page|
+    page.title = "Registry"
+    page.published = true
+    page.content = <<~HTML
+      <h2>What We Want Most</h2>
+      <p>Your presence and support in our lives is the greatest gift we could ever hope for.</p>
+      <p>If you'd like to contribute to our future together, we've set up options that will help us build our life as a married couple.</p>
+      <h3>Honeymoon Fund</h3>
+      <p>We're planning an amazing honeymoon and would love your help making it extra special.</p>
+      <h3>Home Fund</h3>
+      <p>We're saving for our first home together and every contribution helps us reach that goal.</p>
+      <p><strong>Thank you for being part of our journey!</strong></p>
+    HTML
+  end
 end

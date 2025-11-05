@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   get "rsvp/step-2(/:id)", to: "parties#onboarding", as: :onboarding
   resource :party, except: [:new, :index, :destroy]
 
-  get "registry", to: "infos#registry", as: :registry
-
   get "realm", to: "infos#map", as: :map
   get "map", to: "infos#map" # just in case people try it
   resources :locations, only: [:index]
@@ -24,8 +22,12 @@ Rails.application.routes.draw do
     resources :guests
     resources :locations
     resources :mailings, only: [:index, :new, :show, :create]
+    resources :pages
     root "guests#index"
   end
+
+  # Dynamic pages (e.g., /registry, /travel-info, etc.)
+  get "/:slug", to: "pages#show", as: :page, constraints: { slug: /[a-z0-9-]+/ }
 
   root "infos#home"
 end

@@ -1,8 +1,4 @@
 class InfosController < ApplicationController
-  def registry
-    @og_image = "og-registry.jpg"
-  end
-
   def home
   end
 

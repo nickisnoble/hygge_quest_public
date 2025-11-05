@@ -1,0 +1,44 @@
+<%= form_with(model: [:admin, page], class: "space-y-6") do |form| %>
+  <% if page.errors.any? %>
+    <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
+      <h4 class="font-semibold mb-2"><%= pluralize(page.errors.count, "error") %> occurred:</h4>
+      <ul class="list-disc list-inside">
+        <% page.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title, required: true, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :slug, "URL Slug" %>
+      <%= form.text_field :slug, placeholder: "auto-generated from title if left blank" %>
+      <p class="text-sm text-gray-600 mt-1">Only lowercase letters, numbers, and hyphens. Will be used in the URL: yoursite.com/<strong class="text-gray-900"><%= page.slug.presence || "your-slug" %></strong></p>
+    </div>
+
+    <div class="field">
+      <%= form.label :published do %>
+        <%= form.check_box :published, class: "mr-2" %>
+        <span>Published (visible to guests)</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <%= form.label :content, "Page Content" %>
+      <%= form.rich_text_area :content, class: "min-h-96" %>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-3">
+    <%= link_to "Cancel", admin_pages_path, class: "btn secondary" %>
+    <%= form.submit class: "btn primary" %>
+  </div>
+<% end %>
