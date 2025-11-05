@@ -1,5 +1,5 @@
 class Guest < ApplicationRecord
-  include Feast
+  include FoodPreference
 
   belongs_to :party
   belongs_to :group, optional: true

@@ -12,13 +12,6 @@ module.exports = {
       screens: {
         xs: "400px"
       },
-      fontFamily: {
-        sans:    ['Inter var', ...defaultTheme.fontFamily.sans],
-        serif:   ["adobe-jenson-pro", ...defaultTheme.fontFamily.serif],
-        display: ["adobe-jenson-pro-display", ...defaultTheme.fontFamily.serif],
-        caption: ["adobe-jenson-pro-caption", ...defaultTheme.fontFamily.serif],
-        hand:    ["rollerscript-rough", ...defaultTheme.fontFamily.serif],
-      },
     },
   },
   plugins: [

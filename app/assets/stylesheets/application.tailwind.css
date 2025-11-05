@@ -1,5 +1,3 @@
-@import url("https://use.typekit.net/rnh6dcb.css");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,56 +7,36 @@
     @apply antialiased;
   }
 
-  * {
-    @apply border-amber-950/20;
-  }
-
   body {
-    @apply font-serif;
-  }
-
-  h1,
-  h2 {
-    @apply font-display text-balance;
+    @apply bg-gray-50 text-gray-900 font-serif;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl italic tracking-tight;
+    @apply text-4xl md:text-5xl font-bold tracking-tight text-gray-900;
   }
 
   h2 {
-    @apply text-4xl md:text-3xl font-display uppercase tracking-wide;
+    @apply text-3xl md:text-4xl font-semibold text-gray-800;
   }
 
   h3 {
-    @apply text-xl md:text-lg font-caption font-bold;
+    @apply text-xl md:text-2xl font-semibold text-gray-800;
   }
 
   h4 {
-    @apply max-md:font-serif md:text-xl italic tracking-tight;
-  }
-
-  h2 + p,
-  h3 + p {
-    @apply text-xl italic text-balance leading-tight;
-  }
-
-  figure,
-  small {
-    @apply font-caption;
+    @apply text-lg md:text-xl font-medium text-gray-700;
   }
 
   [type="text"],
   [type="email"],
   [type="radio"],
+  [type="checkbox"],
   textarea,
   select {
     font-size: inherit;
-    @apply text-emerald-800;
 
     &:focus {
-      outline: none;
-      box-shadow: none;
+      @apply ring-2 ring-blue-500 outline-none;
     }
 
     &:disabled {
@@ -70,39 +48,25 @@
   [type="email"],
   textarea,
   select {
-    @apply w-full
-      leading-none
-      border-none bg-transparent
-      placeholder:font-caption placeholder:font-normal placeholder:italic placeholder:tracking-tight placeholder:text-sm placeholder:pt-2;
+    @apply w-full rounded-md border-gray-300 shadow-sm;
   }
-
-
-  [type="text"],
-  [type="email"],
-  textarea {
-    @apply resize-none font-hand font-bold;
-  }
-
 
   [type="text"],
   [type="email"] {
-    @apply p-1 pb-0 overflow-x-scroll;
+    @apply px-3 py-2;
   }
 
   textarea {
-    @apply text-xl p-2 bg-transparent focus:outline-none;
+    @apply px-3 py-2;
   }
 
   select {
-    @apply px-0.5 pt-1 pb-0;
-
-    & option {
-      @apply italic;
-    }
+    @apply px-3 py-2;
   }
 
-  [type="radio"] {
-    @apply text-emerald-700 focus:outline-none;
+  [type="radio"],
+  [type="checkbox"] {
+    @apply text-blue-600 focus:ring-blue-500;
   }
 
   label:has(input) {
@@ -112,205 +76,80 @@
 
 @layer components {
   .card {
-    box-shadow: 0 0 16px 6px rgba(0, 0, 0, 0.5);
-    border: 12px solid #ebdec2;
-    border-image-repeat: stretch;
-    border-image-slice: 100%;
-    border-image-source: none;
-    border-image-width: 1;
-    border-image: url("borders/torn.png") 12 repeat;
-    border-image-outset: 3px;
-    background: url("textures/paper.jpg");
-    @apply px-2 py-4 text-amber-950;
+    @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
   }
 
   .field {
-    @apply border-b border-dashed border-amber-700/60 focus-within:border-amber-700 focus-within:border-solid;
+    @apply mb-4;
 
     & label:not(:has(input)) {
-      line-height: 1;
-      @apply block p-0.5 font-sans text-[8px] font-bold tracking-widest uppercase whitespace-nowrap;
+      @apply block mb-2 text-sm font-medium text-gray-700;
     }
 
     & input,
-    & select {
-      line-height: 1;
-      @apply block p-0;
-    }
-
-    & input {
-      @apply indent-1;
-    }
-
+    & select,
     & textarea {
-      @apply block p-1 -mt-1;
-    }
-
-    &:has(textarea) {
-      @apply border border-solid border-amber-700/40 focus-within:border-amber-700;
+      @apply mt-1;
     }
   }
 
   .field-group {
-    @apply flex gap-2 w-full flex-col md:flex-row;
+    @apply flex gap-4 w-full flex-col md:flex-row;
 
     & .field {
-      @apply flex-1 basis-full;
+      @apply flex-1;
     }
   }
 
   .boxed {
-    @apply border-2 border-amber-700/40 focus-within:border-amber-700;
+    @apply border border-gray-300 rounded-lg p-4;
 
     & legend {
-      @apply ml-2 -mt-5 px-1 italic font-bold font-display text-lg;
-
-
+      @apply px-2 text-lg font-semibold text-gray-800;
     }
 
-    & legend + .field,
-    & legend + .field-group {
-      @apply border-t;
-    }
-
-    & .field,
-    & .field-group {
-      @apply border-solid border-amber-700/40;
-    }
-
-
-    & .field-group {
-      @apply gap-0;
-    }
-
-    & .field-group .field + .field {
-      @apply md:border-l;
+    & .field {
+      @apply mb-3 last:mb-0;
     }
   }
 
   .btn {
-    @apply inline-block italic py-1 px-3 rounded-md border border-red-900/80 border-dotted text-red-900/80 hover:text-red-900 hover:border-solid cursor-pointer;
+    @apply inline-block px-4 py-2 rounded-md font-medium transition-colors cursor-pointer;
+    @apply border border-gray-300 bg-white text-gray-700;
+    @apply hover:bg-gray-50 hover:border-gray-400;
 
     &.primary {
-      @apply border-solid text-yellow-100 bg-red-900/80 hover:bg-red-900;
+      @apply border-blue-600 bg-blue-600 text-white;
+      @apply hover:bg-blue-700 hover:border-blue-700;
+    }
+
+    &.secondary {
+      @apply border-gray-400 bg-gray-100 text-gray-700;
+      @apply hover:bg-gray-200;
     }
   }
 
   .link {
-    @apply font-bold underline decoration-dotted hover:decoration-solid text-amber-800;
+    @apply font-medium underline text-blue-600 hover:text-blue-800;
   }
 }
-
-@layer utilities {
-  .bg-paper {
-    background-image: url("textures/paper.jpg");
-  }
-  .bg-paper-black {
-    background-image: url("textures/paper-black.jpg");
-  }
-  .bg-paper-white {
-    background-image: url("textures/paper-white.jpg");
-  }
-  .bg-parchment-cross {
-    background-image: url("textures/parchment-cross.jpg");
-  }
-  .bg-parchment-dark {
-    background-image: url("textures/parchment-dark.jpg");
-  }
-  .bg-parchment {
-    background-image: url("textures/parchment.jpg");
-  }
-  .bg-gold {
-    background-image: url("textures/gold.jpg");
-  }
-  .text-gold {
-    @apply bg-gold bg-clip-text text-transparent bg-fixed;
-  }
-
-  .border-gold {
-    border-image-source: url("textures/gold.jpg");
-    border-image-slice: 10;
-    border-image-repeat: repeat;
-  }
-
-  .frame-wood {
-    border: 12px solid #ebdec2;
-    border-image-repeat: round;
-    border-image: url("borders/wood.png") 133px repeat;
-    border-image-outset: 0;
-    border-image-outset: 2px;
-    background: url("textures/paper.jpg");
-    @apply px-2 py-4 text-amber-950 shadow-lg;
-  }
-
-  .grid-ram {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-}
-
 
 /* Need to be outside @layers so they always generate, since markup is dynamic */
 .field_with_errors {
   & > * { @apply text-red-700; }
 }
 
-[class*="guild-"] {
-  @apply shadow-inner transition-all duration-300;
-
-  &:has([type="radio"]:checked) {
-    @apply shadow-md;
+@keyframes fade-in-and-out {
+  0%, 100% {
+    opacity: 0;
+  }
+  15%, 85% {
+    opacity: 1;
   }
 }
 
-.guild-Athletica {
-  @apply text-red-900 bg-red-500/10 border-red-950/20;
+.flash-error { @apply text-red-800 bg-red-50 border-red-200; }
+.flash-success { @apply text-green-800 bg-green-50 border-green-200; }
+.flash-notice { @apply text-blue-800 bg-blue-50 border-blue-200; }
 
-  &:has([type="radio"]:checked) {
-    @apply text-red-100 bg-red-700 border-red-950/30;
-  }
-}
-
-.guild-Galanis {
-  @apply text-emerald-900 bg-emerald-500/10 border-emerald-950/20;
-
-  &:has([type="radio"]:checked) {
-    @apply text-emerald-100 bg-emerald-700 border-emerald-950/30;
-  }
-}
-
-.guild-Haven {
-  @apply text-yellow-900 bg-yellow-500/10 border-yellow-950/20;
-
-  &:has([type="radio"]:checked) {
-    @apply text-yellow-100 bg-yellow-600 border-yellow-950/30;
-  }
-}
-
-.guild-Myst {
-  @apply text-violet-900 bg-violet-500/10 border-violet-950/20;
-
-  &:has([type="radio"]:checked) {
-    @apply text-violet-100 bg-violet-700 border-violet-950/30;
-  }
-}
-
-.guild-Reverie {
-  @apply text-orange-900 bg-orange-500/10 border-orange-950/20;
-
-  &:has([type="radio"]:checked) {
-    @apply text-orange-100 bg-orange-600 border-orange-950/30;
-  }
-}
-
- @keyframes fade-in-and-out {
-   0%, 100% {
-     opacity: 0;
-   }
-   15%, 85% {
-     opacity: 1;
-   }
- }
-
-.flash-error { @apply text-red-800; }
-.flash-success { @apply text-emerald-600; }
-.flash-notice { @apply text-blue-800; }@import 'actiontext.css';
+@import 'actiontext.css';

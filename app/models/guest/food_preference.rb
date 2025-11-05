@@ -1,4 +1,4 @@
-module Guest::Feast
+module Guest::FoodPreference
   extend ActiveSupport::Concern
 
   included do
@@ -10,18 +10,21 @@ module Guest::Feast
     }
   end
 
-  def feast
+  def meal
     case food_preference
     when "vegetarian"
-      "Foraged (V)"
+      "Vegetarian"
     when "duck"
-      "Fowl (Duck)"
+      "Duck"
     when "salmon"
-      "Fish (Salmon)"
+      "Salmon"
     when "child"
-      "Child's Feast"
+      "Child's Meal"
     else
-      "Feast TBD"
+      "Not Selected"
     end
   end
+
+  # Keep feast alias for backwards compatibility during transition
+  alias_method :feast, :meal
 end

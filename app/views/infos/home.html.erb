@@ -1,51 +1,25 @@
-<style>
-  main {
-    background-position: center center;
-  }
+<main class="min-h-screen bg-gray-100 flex items-center justify-center">
+  <nav class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full mx-4">
+    <h1 class="text-3xl font-bold mb-6 text-center text-gray-900">Wedding</h1>
+    <div class="space-y-3">
+      <% if current_user %>
+        <p class="text-gray-600 mb-4">Welcome back, <%= current_user.name %>!</p>
 
-  #main-navigation {
-    background-image: radial-gradient(at bottom left, #0a504add, transparent);
-    background-attachment: fixed;
-    color: rgb(254 243 199);
+        <%= link_to "Admin Dashboard", admin_root_path, class: "block w-full text-center btn primary" if current_user&.admin? %>
 
-    & a {
-      line-height: 1;
-      font-size: 2.8rem;
-
-      @media (min-width: 768px) {
-        /* 6xl */
-        font-size: 3.75rem;
-      }
-
-      /* Fix leading */
-      margin-top: 0.5rem;
-      padding-bottom: 0.25rem;
-
-      &:hover {
-        font-style: italic;
-      }
-    }
-  }
-</style>
-<main class="grid bg-cover bg-[url('backgrounds/castle.jpg')] min-h-screen">
-  <nav id="main-navigation" class="flex flex-col justify-end items-start p-4 gap-1">
-    <% if current_user %>
-      <h5 class="text-white text-xl mb-3 leading-none">
-        Welcome <%= current_user.name %>!<br>
-        <span class="font-bold italic leading-tight">Choose your path:</span></h5>
-
-      <%= link_to "DM Screen", admin_root_path if current_user&.admin? %>
-
-      <% if current_user.party.rsvp?  %>
-        <%= link_to "Adventuring Party", party_path %>
-        <%= link_to "Map of the Realm", map_path, data: { turbo: false } %>
+        <% if current_user.party.rsvp?  %>
+          <%= link_to "Your RSVP", party_path, class: "block w-full text-center btn" %>
+          <%= link_to "Locations", map_path, class: "block w-full text-center btn", data: { turbo: false } %>
+        <% end %>
+      <% else %>
+        <%= link_to "RSVP", new_party_path, class: "block w-full text-center btn primary" %>
       <% end %>
-    <% else %>
-      <h5 class="text-white italic leading-tight text-xl font-bold mb-3">Choose your path:</h5>
-      <%= link_to "RSVP", new_party_path %>
-    <% end %>
-    <%= link_to "Registry", registry_path %>
-    <%= link_to "Guilds", guilds_path if current_user %>
-    <%= auth_link %>
+
+      <%= link_to "Registry", registry_path, class: "block w-full text-center btn" %>
+
+      <div class="pt-4 border-t border-gray-200">
+        <%= auth_link %>
+      </div>
+    </div>
   </nav>
 </main>

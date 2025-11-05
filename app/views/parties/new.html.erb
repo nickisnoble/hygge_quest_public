@@ -1,69 +1,70 @@
-<div class="bg-cover bg-[url('backgrounds/forest.jpg')] bg-fixed min-h-screen p-4">
-  <div class="my-80 md:my-12">
-    <section class="text-center space-y-6 card bg-paper max-w-screen-sm mx-auto pt-4 md:pt-8 pb-12 -rotate-[0.5deg]">
-      <%= image_tag "props/seal.png", class: "size-24 block mx-auto -mt-6" %>
-      <div class="space-y-1">
-        <h2>Dearest friends &amp; family, from far and wide</h2>
-        <p>Your assistance is requested in a matter most close to heart:</p>
-      </div>
-      <div class="space-y-1">
-        <h3 class="uppercase text md:text-xl font-normal">the next chapter for</h3>
-        <h1 class="text-5xl">Marnie Williams &amp; Nick Noble</h1>
-        <h3 class="uppercase text md:text-xl font-normal">starts on April 28th, 2024</h3>
+<div class="min-h-screen bg-gray-50 py-12 px-4">
+  <div class="max-w-2xl mx-auto space-y-8">
+    <section class="text-center card">
+      <div class="space-y-4">
+        <h1>You're Invited</h1>
+        <p class="text-xl text-gray-600">Join us as we celebrate</p>
+        <h2 class="text-3xl">Marnie Williams &amp; Nick Noble</h2>
+        <p class="text-lg text-gray-600">April 28th, 2024</p>
       </div>
     </section>
-    <section class="text-center space-y-6 card  bg-paper max-w-[32ch] mx-auto -mt-8 rotate-[0.5deg]">
+
+    <section class="card">
       <%= form_for @party, url: party_path do |f| %>
-        <div class="grid gap-4">
+        <div class="space-y-6">
           <% if @party.errors.any? %>
-            <div class="text-red-700 border border-current p-2" id="error_explanation">
-              <h4><%= pluralize(@party.errors.count, "error") %> prohibited this party from being saved:</h4>
-              <ul>
+            <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
+              <h4 class="font-semibold mb-2"><%= pluralize(@party.errors.count, "error") %> occurred:</h4>
+              <ul class="list-disc list-inside">
                 <% @party.errors.full_messages.each do |message| %>
                   <li><%= message %></li>
                 <% end %>
               </ul>
             </div>
           <% end %>
-          <div class="rsvp-question text-emerald-800">
-            <%= f.label :rsvp, "Will you aid our quest?", class: "block text-lg font-bold italic tracking-tight -mt-1" %>
-            <div class="inline-block text-left mx-auto">
-              <%= f.label :rsvp_true, class: "block" do %>
-                <%= f.radio_button :rsvp, true, required: true %>
-                Accept the call
+
+          <div class="text-center">
+            <%= f.label :rsvp, "Will you be able to attend?", class: "block text-xl font-semibold mb-4" %>
+            <div class="inline-flex flex-col gap-2">
+              <%= f.label :rsvp_true, class: "flex items-center gap-2 cursor-pointer" do %>
+                <%= f.radio_button :rsvp, true, required: true, class: "h-4 w-4" %>
+                <span class="text-lg">Yes, I'll be there</span>
               <% end %>
-              <%= f.label :rsvp_false, class: "block" do %>
-                <%= f.radio_button :rsvp, false, required: true %>
-                Regretfully decline
+              <%= f.label :rsvp_false, class: "flex items-center gap-2 cursor-pointer" do %>
+                <%= f.radio_button :rsvp, false, required: true, class: "h-4 w-4" %>
+                <span class="text-lg">Sorry, I can't make it</span>
               <% end %>
             </div>
           </div>
+
           <%= f.fields_for :guests do |g| %>
             <% if g.object.errors.any? %>
-              <div class="text-red-700 border border-current p-2">
-                <h4><%= pluralize(g.object.errors.count, "error") %> prevented this from submitting:</h4>
-                <ul>
+              <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
+                <h4 class="font-semibold mb-2"><%= pluralize(g.object.errors.count, "error") %> occurred:</h4>
+                <ul class="list-disc list-inside">
                   <% g.object.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
                   <% end %>
                 </ul>
               </div>
             <% end %>
-            <div class="flex flex-col boxed text-left">
+
+            <div class="space-y-4">
               <div class="field">
                 <%= g.label :name, "Your name" %>
-                <%= g.text_field :name, required: true %>
+                <%= g.text_field :name, required: true, placeholder: "First and Last Name" %>
               </div>
-              <div class="field border-t-0">
+              <div class="field">
                 <%= g.label :email, "Your email" %>
-                <%= g.email_field :email, required: true %>
+                <%= g.email_field :email, required: true, placeholder: "email@example.com" %>
               </div>
             </div>
 
-            <p class="italic leading-tight">There will be space to add additional guests on the following page.</p>
+            <p class="text-sm text-gray-600 italic">You'll be able to add additional guests on the next page.</p>
           <% end %>
-          <div class="text-center">
-            <%= f.submit "Next &rarr;".html_safe, class: "btn" %>
+
+          <div class="text-center pt-4">
+            <%= f.submit "Continue", class: "btn primary" %>
           </div>
         </div>
       <% end %>
