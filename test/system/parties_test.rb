@@ -48,25 +48,15 @@ class PartiesTest < ApplicationSystemTestCase
     guest = party.guests.first
     assert_equal @user[:name], guest.name, "Expected the guest to have the same name as the user"
 
-    page.has_content?("Adventuring Party")
+    # Select food preference
+    find("label", text: "Duck").click
 
-    find("label", text: "Fowl").click
-    find(:xpath, "//*[contains(text(), 'Myst')]", match: :first).click
-
-    assert_no_selector "label", text: "Party"
-
+    # Add another guest
     find_link("Add guest", text: /Add guest/).click
 
     within "[id*=new_guest]" do
       fill_in "Name", with: "Ms. #{@user[:name]}"
-      select "Fish", from: "Feast"
-
-      # test validation
-      click_on "Add Guest"
-      assert_text "Guild must be chosen"
-      assert_selector "form" # should still be there
-
-      select "Galanis", from: "Guild"
+      select "Salmon", from: "Food preference"
       click_on "Add Guest"
 
       assert_no_selector "form"
@@ -76,6 +66,8 @@ class PartiesTest < ApplicationSystemTestCase
 
     page.has_content?("Thank you")
     page.has_content?(@user[:name])
+
+    assert_equal 2, party.guests.reload.count
   end
 
   test "RSVP partially then get logged out then log in" do

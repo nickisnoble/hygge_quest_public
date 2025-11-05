@@ -1,4 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
+ENV["DEFAULT_FROM_EMAIL"] ||= "noreply@example.com"
+
 require_relative "../config/environment"
 require "rails/test_help"
 require "passwordless/test_helpers"
