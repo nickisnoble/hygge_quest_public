@@ -8,36 +8,25 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-guilds = [
+groups = [
   {
-    name: "Athletica",
-    description: "Champions in the relentless pursuit of excellence, we safeguard others through greatness in heart, mind, and body.",
-    secret: false
+    name: "Wedding Party",
+    description: "Members of the wedding party"
   },
   {
-    name: "Galanis",
-    description: "Connectivity and influence is our currency, mastering the art of the network and charisma refined. We know everyone.",
-    secret: false
+    name: "Family",
+    description: "Family members"
   },
   {
-    name: "Haven",
-    description: "Our sancuary offers a solace from a changing world. We provide healing and comfort, nurturing all with wisdom and care.",
-    secret: false
-  },
-  {
-    name: "Myst",
-    description: "Masters of the unknown, there is no machine nor manual that can keep knowedge hidden from the Myst.",
-    secret: false
-  },
-  {
-    name: "Reverie",
-    description: "Keepers of stories, weavers of tales, we love a great time with friends and good cheer.",
-    secret: false
+    name: "Friends",
+    description: "Friends of the couple"
   }
 ]
 
-guilds.each do |guild_attributes|
-  Guild.find_or_create_by!(guild_attributes)
+groups.each do |group_attributes|
+  Group.find_or_create_by!(name: group_attributes[:name]) do |group|
+    group.description = group_attributes[:description]
+  end
 end
 
 Party.create!(
@@ -47,15 +36,13 @@ Party.create!(
     Guest.new({
       name: "Nick Noble",
       email: "groom@example.com",
-      dungeon_master: true,
-      guild_id: 4
+      admin: true
     }),
 
     Guest.new({
       name: "Marnie Williams",
       email: "bride@example.com",
-      dungeon_master: true,
-      guild_id: 3
+      admin: true
     })
   ]
 )
@@ -68,15 +55,13 @@ if Rails.env.development?
       Guest.new({
         name: "Kermit",
         email: "frog@example.com",
-        dungeon_master: false,
-        guild_id: 3
+        admin: false
       }),
 
       Guest.new({
         name: "Ms Piggy",
         email: "moi@example.com",
-        dungeon_master: false,
-        guild_id: 2
+        admin: false
       })
     ]
   )
@@ -88,8 +73,7 @@ if Rails.env.development?
       Guest.new({
         name: "Gonzo",
         email: "gg@example.com",
-        dungeon_master: false,
-        guild_id: 4
+        admin: false
       })
     ]
   )
@@ -101,7 +85,7 @@ if Rails.env.development?
       Guest.new({
         name: "Fozzy",
         email: "wakawaka@example.com",
-        dungeon_master: false
+        admin: false
       })
     ]
   )

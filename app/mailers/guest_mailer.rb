@@ -4,11 +4,11 @@ class GuestMailer < ApplicationMailer
     @guest = guest
     @mailing = mailing
 
-    dm_emails = Guest.where(dungeon_master: true).pluck(:email)
+    admin_emails = Guest.where(admin: true).pluck(:email)
 
     mail(
       to: @guest.email,
-      reply_to: dm_emails,
+      reply_to: admin_emails,
       subject: @mailing.subject,
 
       template_path: "guests/mailers",

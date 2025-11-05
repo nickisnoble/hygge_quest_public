@@ -6,7 +6,7 @@
     <%= render partial: "guests/guest", collection: guest_collection, as: :guest %>
   <% end %>
 
-  <% if !hide_controls && !party.locked? && (party == current_user.party || current_user.dungeon_master?) %>
+  <% if !hide_controls && !party.locked? && (party == current_user.party || current_user.admin?) %>
     <%= render partial: "add_guests", locals: {party: party} %>
   <% end %>
 </div>

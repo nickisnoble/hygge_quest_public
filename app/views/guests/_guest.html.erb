@@ -17,7 +17,7 @@
     </div>
 
 
-    <% unless guest.party.locked? && !current_user.dungeon_master? %>
+    <% unless guest.party.locked? && !current_user.admin? %>
       <nav class="flex gap-2 italic uppercase text-xs sm:justify-self-end">
         <%= link_to "Edit", edit_guest_path(guest) %>
         <%= button_to "Remove", guest_path(guest),

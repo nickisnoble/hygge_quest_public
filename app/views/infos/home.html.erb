@@ -34,7 +34,7 @@
         Welcome <%= current_user.name %>!<br>
         <span class="font-bold italic leading-tight">Choose your path:</span></h5>
 
-      <%= link_to "DM Screen", dungeon_master_root_path if current_user&.dungeon_master? %>
+      <%= link_to "DM Screen", admin_root_path if current_user&.admin? %>
 
       <% if current_user.party.rsvp?  %>
         <%= link_to "Adventuring Party", party_path %>

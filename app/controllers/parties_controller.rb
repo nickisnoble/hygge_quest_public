@@ -78,18 +78,19 @@ class PartiesController < ApplicationController
 
     if @party.rsvp
       @party.guests.each do |guest|
-        guest_list << "- #{guest.name} (#{guest.feast}, #{guest.guild.name})"
+        group_name = guest.group&.name || "No group"
+        guest_list << "- #{guest.name} (#{guest.feast}, #{group_name})"
       end
     end
 
-    DungeonMasterNotifier.notify(
+    AdminNotifier.notify(
       "#{@party.guests.first.name} responded!",
       <<~BODY
-        #{@party.name} rsvp'd '#{@party.rsvp ? "accept" : "can’t make it"}'.
+        #{@party.name} rsvp'd '#{@party.rsvp ? "accept" : "can't make it"}'.
 
         #{guest_list.join("\n")}
 
-        DM Screen: #{dungeon_master_root_url}
+        Admin Panel: #{admin_root_url}
         Email them: #{@party.guests.first.email}
       BODY
     )

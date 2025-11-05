@@ -1,0 +1,27 @@
+<%= form_with(model: [:admin, group], class: "space-y-4") do |form| %>
+  <% if group.errors.any? %>
+    <div class="text-red-700 border border-current p-4">
+      <h4 class="font-bold"><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h4>
+      <ul class="list-disc ml-5">
+        <% group.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn" %>
+    <%= link_to "Cancel", admin_groups_path, class: "btn secondary" %>
+  </div>
+<% end %>

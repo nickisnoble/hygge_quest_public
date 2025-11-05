@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
     redirect_to guests_sign_in_path
   end
 
-  def require_dm!
-    return if current_user.dungeon_master?
+  def require_admin!
+    return if current_user.admin?
     redirect_to party_path(current_user.party)
   end
 end

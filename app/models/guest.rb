@@ -2,8 +2,7 @@ class Guest < ApplicationRecord
   include Feast
 
   belongs_to :party
-  belongs_to :guild, optional: true
-  has_and_belongs_to_many :achievements
+  belongs_to :group, optional: true
   has_and_belongs_to_many :mailings
 
   scope :attending, -> { joins(:party).where(parties: {rsvp: true}) }

@@ -34,11 +34,7 @@ class Party < ApplicationRecord
 
     guests.each do |guest|
       unless guest.food_preference.present?
-        errors.add(:guests, "must all have chosen a feast")
-      end
-
-      unless guest.guild_id.present?
-        errors.add(:guests, "must all have chosen a guild")
+        errors.add(:guests, "must all have chosen a meal preference")
       end
     end
   end

@@ -1,2 +1,0 @@
-module DungeonMaster::QuestsHelper
-end

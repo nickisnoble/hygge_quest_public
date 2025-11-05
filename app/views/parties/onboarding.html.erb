@@ -1,6 +1,6 @@
 <div class="bg-cover bg-[url('backgrounds/forest.jpg')] bg-fixed min-h-screen p-4 md:p-12 xl:p-20">
   <div class="flex flex-col gap-12 max-w-screen-xl mx-auto relative z-10">
-    <% if @party.guests.include? current_user # don't confuse dungeon_masters %>
+    <% if @party.guests.include? current_user # don't confuse admins %>
       <section class="grid flex-col gap-4 card bg-paper max-w-screen-md odd:-rotate-[0.5deg] even:rotate-[0.5deg] even:self-end">
         <div class="space-y-1 text-center">
           <h2>There will be a glorious feast</h2>
@@ -36,29 +36,6 @@
             <p>A full bar with custom cocktails will be available throughout the event.</p>
           </div>
         </div>
-      </section>
-      <section class="grid flex-col gap-4 card bg-paper max-w-screen-md odd:-rotate-[0.5deg] even:rotate-[0.5deg] even:self-end">
-        <div class="space-y-1 text-center">
-          <h2>There will be fantasy and merriment</h2>
-          <p>And so we ask, who will you become? Who are you <em>really</em>?</p>
-        </div>
-        <h3 class="text-center text-xl uppercase tracking-wide font-display font-bold">Join a guild</h3>
-        <%= form_for current_user, data: { controller: "form", action: "input->form#submit" } do |f| %>
-          <div class="grid gap-1 sm:grid-cols-3 lg:grid-cols-5">
-            <%= f.collection_radio_buttons :guild_id, Guild.where(secret: false), :id, :name do |g| %>
-              <div class="guild-<%= g.object.name %> p-2 border rounded-none sm:text-center">
-                <%= g.label(class: "max-sm:flex gap-4") do %>
-                  <%= g.radio_button(class: "sr-only peer") %>
-                  <%= image_tag(url_for(g.object.icon), class: "rounded-full size-20 sm:size-24 mx-auto") if g.object.icon.attached? %>
-                  <div class="mt-1">
-                    <h4 class="font-bold text-xl"><%= g.object.name %></h4>
-                    <p class="text-pretty text-sm leading-tight"><%= g.object.description %></p>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
       </section>
     <% end %>
     <section class="flex flex-col gap-4 card bg-paper max-w-screen-md odd:-rotate-[0.5deg] even:rotate-[0.5deg] even:self-end">
