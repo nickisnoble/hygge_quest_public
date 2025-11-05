@@ -2,7 +2,7 @@ module Guest::FoodPreference
   extend ActiveSupport::Concern
 
   included do
-    enum food_preference: {
+    enum :food_preference, {
       vegetarian: 0,
       duck: 1,
       salmon: 2,

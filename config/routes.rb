@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "RSVP", to: "parties#new" # in case of all caps
   get "rsvp", to: "parties#new", as: :new_party
   get "rsvp/step-2(/:id)", to: "parties#onboarding", as: :onboarding
-  resource :party, except: [:new, :index, :destroy]
+  resource :party, except: [:new, :destroy]
 
   get "realm", to: "infos#map", as: :map
   get "map", to: "infos#map" # just in case people try it
