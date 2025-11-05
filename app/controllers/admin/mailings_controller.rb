@@ -16,6 +16,17 @@ class Admin::MailingsController < ApplicationController
   def create
     @mailing = Mailing.new(mailing_params)
 
+    # Add guests from selected groups
+    if params[:mailing][:group_ids].present?
+      group_ids = params[:mailing][:group_ids].reject(&:blank?)
+      groups = Group.where(id: group_ids).includes(:members)
+      group_guest_ids = groups.flat_map { |group| group.members.attending.pluck(:id) }
+
+      # Merge with individually selected guests
+      all_guest_ids = (mailing_params[:guest_ids] + group_guest_ids).uniq
+      @mailing.guest_ids = all_guest_ids
+    end
+
     failed = []
 
     if @mailing.save
@@ -55,6 +66,6 @@ class Admin::MailingsController < ApplicationController
   private
 
   def mailing_params
-    params.require(:mailing).permit(:subject, :body, guest_ids: [])
+    params.require(:mailing).permit(:subject, :body, guest_ids: [], group_ids: [])
   end
 end

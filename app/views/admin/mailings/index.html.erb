@@ -1,6 +1,6 @@
-<header class="flex justify-between items-center">
-  <h1>Scrolls</h1>
-  <%= link_to "New", new_admin_mailing_path, class: "btn primary" %>
-</header>
+<div class="flex justify-between items-center mb-6">
+  <h1>Email History</h1>
+  <%= link_to "New Email", new_admin_mailing_path, class: "btn primary" %>
+</div>
 
 <%= render @mailings.order(created_at: :desc) %>

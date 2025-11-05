@@ -1,21 +1,63 @@
-<%= form_with(model: [:admin, @mailing], class: "space-y-4") do |form| %>
-  <div class="field">
-    <%= form.label :subject %>
-    <%= form.text_field :subject, autocomplete: "off" %>
-  </div>
-  <div class="field">
-    <div class="prose max-w-full">
-      <h4>Dear Guest,</h4>
-      <%= form.rich_text_area :body %>
-    </div>
-  </div>
-  <div class="grid gap-1">
-    <% Guest.attending.each do |guest| %>
-      <div class="flex gap-2">
-        <%= form.check_box :guest_ids, { multiple: true }, guest.id, nil %>
-        <%= form.label :guest_ids, guest.name, value: guest.id %>
+<div class="max-w-4xl mx-auto">
+  <h1 class="mb-6">New Email</h1>
+
+  <%= form_with(model: [:admin, @mailing], class: "space-y-6") do |form| %>
+    <div class="card">
+      <div class="field">
+        <%= form.label :subject, "Email Subject" %>
+        <%= form.text_field :subject, autocomplete: "off", required: true %>
       </div>
-    <% end %>
-  </div>
-  <%= form.submit class: "btn primary" %>
-<% end %>
+
+      <div class="field">
+        <%= form.label :body, "Message" %>
+        <div class="mt-2">
+          <%= form.rich_text_area :body, class: "min-h-48" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="text-xl font-semibold mb-4">Recipients</h2>
+
+      <% if Group.any? %>
+        <div class="mb-6">
+          <h3 class="text-lg font-medium mb-3">Select by Group</h3>
+          <div class="grid md:grid-cols-2 gap-3">
+            <% Group.all.each do |group| %>
+              <div class="border border-gray-300 rounded-lg p-3 hover:bg-gray-50">
+                <%= form.check_box :group_ids, { multiple: true, id: "group_#{group.id}", class: "mr-2" }, group.id, nil %>
+                <%= form.label :group_ids, value: group.id, for: "group_#{group.id}", class: "cursor-pointer" do %>
+                  <span class="font-medium"><%= group.name %></span>
+                  <span class="text-gray-500 text-sm ml-2">(<%= group.members.attending.count %> guests)</span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 my-6"></div>
+      <% end %>
+
+      <div>
+        <h3 class="text-lg font-medium mb-3">Select Individual Guests</h3>
+        <div class="max-h-96 overflow-y-auto border border-gray-200 rounded-lg p-4">
+          <div class="grid md:grid-cols-2 gap-2">
+            <% Guest.attending.order(:name).each do |guest| %>
+              <div class="flex items-center gap-2">
+                <%= form.check_box :guest_ids, { multiple: true, id: "guest_#{guest.id}" }, guest.id, nil %>
+                <%= form.label :guest_ids, guest.name, value: guest.id, for: "guest_#{guest.id}", class: "cursor-pointer" %>
+                <% if guest.group %>
+                  <span class="text-xs text-gray-500">(<%= guest.group.name %>)</span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <%= link_to "Cancel", admin_mailings_path, class: "btn secondary" %>
+      <%= form.submit "Send Email", class: "btn primary", data: { confirm: "Are you sure you want to send this email to the selected recipients?" } %>
+    </div>
+  <% end %>
+</div>
