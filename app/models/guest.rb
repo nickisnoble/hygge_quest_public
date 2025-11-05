@@ -16,4 +16,9 @@ class Guest < ApplicationRecord
 
   normalizes :name, with: ->(name) { name.strip }
   validates :name, presence: true, uniqueness: {case_sensitive: false}
+
+  # Notify all admin users
+  def self.notify_admins(subject, body)
+    Admin::Mailer.notify(subject, body).deliver_now
+  end
 end

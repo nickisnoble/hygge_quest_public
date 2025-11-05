@@ -83,7 +83,7 @@ class PartiesController < ApplicationController
       end
     end
 
-    AdminNotifier.notify(
+    Guest.notify_admins(
       "#{@party.guests.first.name} responded!",
       <<~BODY
         #{@party.name} rsvp'd '#{@party.rsvp ? "accept" : "can't make it"}'.
