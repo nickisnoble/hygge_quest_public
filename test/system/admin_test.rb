@@ -9,19 +9,7 @@ class AdminTest < ApplicationSystemTestCase
   end
 
   def sign_in_admin
-    ActionMailer::Base.deliveries.clear
-
-    visit guests_sign_in_url
-    fill_in "passwordless[email]", with: @admin_guest.email
-    click_on "Sign in"
-
-    assert_emails 1
-    email = ActionMailer::Base.deliveries.last
-    assert_not_nil email
-    body = email.body.to_s
-    magic_link = body[/http[s]?:\/\/[\S]+/]
-
-    visit magic_link
+    sign_in_guest(@admin_guest)
   end
 
   test "cannot access admin screen without auth" do

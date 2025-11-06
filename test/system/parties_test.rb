@@ -52,8 +52,9 @@ class PartiesTest < ApplicationSystemTestCase
     assert_no_selector "label", text: "Group"
     assert_no_text "All Groups"
 
-    # Select food preference (should be labeled "Meal" not "Feast")
-    assert_selector "label", text: "Meal"
+    # Select food preference (should show "Meal Selection" heading, not "Feast")
+    assert_text "Meal Selection"
+    assert_no_text "Feast"
     find("label", text: "Duck").click
 
     # Add another guest
@@ -61,7 +62,7 @@ class PartiesTest < ApplicationSystemTestCase
 
     within "[id*=new_guest]" do
       fill_in "Name", with: "Ms. #{@user[:name]}"
-      select "Salmon", from: "Meal"
+      select "Fish (Salmon)", from: "Food preference"
       click_on "Add Guest"
 
       assert_no_selector "form"
