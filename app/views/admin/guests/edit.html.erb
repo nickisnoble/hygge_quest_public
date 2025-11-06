@@ -9,7 +9,7 @@
     <div class="field  p-1">
       <% food_options = [['Foraged (V)', 'vegetarian'], ['Fowl (Duck)', 'duck'], ['Fish (Salmon)', 'salmon']] %>
       <% food_options.prepend(['Child's Meal', 'child']) if @guest.under_13? %>
-      <%= f.select :food_preference, food_options, class: "block w-full", prompt: "Wants to eat..." %>
+      <%= f.select :food_preference, food_options, { prompt: "Wants to eat..." }, { class: "block w-full" } %>
     </div>
     <div class="field  p-1">
       <%= f.collection_select :group_id, Group.all, :id, :name, { include_blank: 'Select Group' }, { class: "block w-full" } %>
