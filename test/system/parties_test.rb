@@ -62,7 +62,7 @@ class PartiesTest < ApplicationSystemTestCase
 
     within "[id*=new_guest]" do
       fill_in "Name", with: "Ms. #{@user[:name]}"
-      select "Fish (Salmon)", from: "Food preference"
+      select "Fish (Salmon)", from: "Meal"
       click_on "Add Guest"
 
       assert_no_selector "form"
@@ -91,10 +91,10 @@ class PartiesTest < ApplicationSystemTestCase
     # should sense that
     # 1. user exists
     # 2. they are logged out
-    assert_current_path guests_sign_in_url
+    assert_current_path guests_sign_in_path
     sign_in guest.email
 
-    assert_current_path onboarding_url
+    assert_current_path onboarding_path
   end
 
   test "RSVP 'no' flow" do

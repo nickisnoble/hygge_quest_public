@@ -29,7 +29,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       expires_at: 1.hour.from_now
     )
 
-    # Visit the magic link directly
-    visit guests_sign_in_path(token: session.identifier)
+    # Visit the magic link directly (/:id/:token format)
+    visit "/guests/sign_in/#{session.id}/#{session.identifier}"
   end
 end
