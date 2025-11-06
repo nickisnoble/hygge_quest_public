@@ -68,7 +68,7 @@ class PartiesTest < ApplicationSystemTestCase
       assert_no_selector "form"
     end
 
-    click_on "Submit RSVP!"
+    click_on "Submit RSVP"
 
     page.has_content?("Thank you")
     page.has_content?(@user[:name])
@@ -85,14 +85,23 @@ class PartiesTest < ApplicationSystemTestCase
     guest = Guest.find_by(email: @user[:email])
     assert_not_nil guest
 
-    # RSVP with the same details
-    rsvp_as @user
+    # Try to RSVP with the same details - should redirect to sign in
+    visit new_party_url
+    fill_in "Your name", with: @user[:name]
+    fill_in "Your email", with: @user[:email]
+    click_on "Continue"
 
-    # should sense that
-    # 1. user exists
-    # 2. they are logged out
+    # Should be redirected to sign in since user exists but is logged out
     assert_current_path guests_sign_in_path
-    sign_in guest.email
+
+    # Sign in and should redirect back to onboarding
+    fill_in "passwordless[email]", with: guest.email
+    click_on "Sign in"
+
+    assert_emails 1
+    email = ActionMailer::Base.deliveries.last
+    magic_link = email.body.to_s[/http[s]?:\/\/[\S]+/]
+    visit magic_link
 
     assert_current_path onboarding_path
   end

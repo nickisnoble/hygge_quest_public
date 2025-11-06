@@ -19,17 +19,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       loop until page.evaluate_script('document.documentElement.hasAttribute("data-turbo-busy")') == false
     end
   end
-
-  # Helper to sign in a guest by directly creating a session
-  def sign_in_guest(guest)
-    # Create a passwordless session
-    session = Passwordless::Session.create!(
-      authenticatable: guest,
-      timeout_at: 1.hour.from_now,
-      expires_at: 1.hour.from_now
-    )
-
-    # Visit the magic link directly (/:id/:token format)
-    visit "/guests/sign_in/#{session.id}/#{session.identifier}"
-  end
 end

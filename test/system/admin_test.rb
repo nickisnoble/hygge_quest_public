@@ -9,7 +9,7 @@ class AdminTest < ApplicationSystemTestCase
   end
 
   def sign_in_admin
-    sign_in_guest(@admin_guest)
+    passwordless_sign_in(@admin_guest)
   end
 
   test "cannot access admin screen without auth" do
