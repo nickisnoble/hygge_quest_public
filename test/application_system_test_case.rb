@@ -22,18 +22,14 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   # Helper to sign in a guest by directly creating a session
   def sign_in_guest(guest)
-    # Create a passwordless session and set the cookie
+    # Create a passwordless session
     session = Passwordless::Session.create!(
       authenticatable: guest,
-      user_agent: "Test",
-      remote_addr: "127.0.0.1",
-      timeout_at: 1.hour.from_now
+      timeout_at: 1.hour.from_now,
+      expires_at: 1.hour.from_now
     )
 
     # Visit the magic link directly
-    visit polymorphic_path(
-      [:guests, :session],
-      token: session.token
-    )
+    visit guests_sign_in_path(token: session.identifier)
   end
 end
