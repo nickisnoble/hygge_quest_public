@@ -20,12 +20,12 @@
       <% food_options.prepend(['Child's Meal', 'child']) if guest.under_13? %>
       <%= f.select :food_preference, food_options, { prompt: "Wants to eat..." }, { class: "block w-full" } %>
     </div>
+
+    <% if current_user&.admin? %>
     <div class="field  p-1 flex-[2]">
       <%= f.label :group_id, "Group" %>
       <%= f.collection_select :group_id, Group.where(secret: false), :id, :name, { include_blank: 'Select Group' }, { class: "block w-full" } %>
     </div>
-
-    <% if current_user.admin? %>
     <div class="field  p-1 flex-[2]">
       <%= f.label :party_id, "Party" %>
       <%= f.collection_select :party_id, Party.all, :id, :name, { class: "block w-full" } %>

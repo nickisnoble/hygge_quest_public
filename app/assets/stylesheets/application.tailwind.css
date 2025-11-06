@@ -36,7 +36,8 @@
     font-size: inherit;
 
     &:focus {
-      @apply ring-2 ring-blue-500 outline-none;
+      @apply ring-2 outline-none;
+      ring-color: var(--color-highlight);
     }
 
     &:disabled {
@@ -66,7 +67,11 @@
 
   [type="radio"],
   [type="checkbox"] {
-    @apply text-blue-600 focus:ring-blue-500;
+    color: var(--color-highlight);
+
+    &:focus {
+      ring-color: var(--color-highlight);
+    }
   }
 
   label:has(input) {
@@ -119,8 +124,14 @@
     @apply hover:bg-gray-50 hover:border-gray-400;
 
     &.primary {
-      @apply border-blue-600 bg-blue-600 text-white;
-      @apply hover:bg-blue-700 hover:border-blue-700;
+      @apply border text-white;
+      background-color: var(--color-highlight);
+      border-color: var(--color-highlight);
+
+      &:hover {
+        background-color: var(--color-highlight-hover);
+        border-color: var(--color-highlight-hover);
+      }
     }
 
     &.secondary {
@@ -130,7 +141,12 @@
   }
 
   .link {
-    @apply font-medium underline text-blue-600 hover:text-blue-800;
+    @apply font-medium underline;
+    color: var(--color-highlight);
+
+    &:hover {
+      color: var(--color-highlight-hover);
+    }
   }
 }
 
@@ -150,6 +166,10 @@
 
 .flash-error { @apply text-red-800 bg-red-50 border-red-200; }
 .flash-success { @apply text-green-800 bg-green-50 border-green-200; }
-.flash-notice { @apply text-blue-800 bg-blue-50 border-blue-200; }
+.flash-notice {
+  background-color: var(--color-highlight-light);
+  border-color: var(--color-highlight);
+  color: var(--color-highlight-hover);
+}
 
 @import 'actiontext.css';

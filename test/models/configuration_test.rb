@@ -59,4 +59,13 @@ class ConfigurationTest < ActiveSupport::TestCase
     Configuration.set("couple_names", "John & Jane")
     assert_equal "John & Jane", Configuration.couple_names
   end
+
+  test "highlight_color returns default" do
+    assert_equal "#3b82f6", Configuration.highlight_color
+  end
+
+  test "highlight_color returns custom value" do
+    Configuration.set("highlight_color", "#ff0000")
+    assert_equal "#ff0000", Configuration.highlight_color
+  end
 end

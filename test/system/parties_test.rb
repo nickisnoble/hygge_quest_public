@@ -48,7 +48,12 @@ class PartiesTest < ApplicationSystemTestCase
     guest = party.guests.first
     assert_equal @user[:name], guest.name, "Expected the guest to have the same name as the user"
 
-    # Select food preference
+    # Guests should not see group selector
+    assert_no_selector "label", text: "Group"
+    assert_no_text "All Groups"
+
+    # Select food preference (should be labeled "Meal" not "Feast")
+    assert_selector "label", text: "Meal"
     find("label", text: "Duck").click
 
     # Add another guest
@@ -56,7 +61,7 @@ class PartiesTest < ApplicationSystemTestCase
 
     within "[id*=new_guest]" do
       fill_in "Name", with: "Ms. #{@user[:name]}"
-      select "Salmon", from: "Food preference"
+      select "Salmon", from: "Meal"
       click_on "Add Guest"
 
       assert_no_selector "form"
@@ -66,6 +71,8 @@ class PartiesTest < ApplicationSystemTestCase
 
     page.has_content?("Thank you")
     page.has_content?(@user[:name])
+    # Guests shouldn't see group information on confirmation page
+    assert_no_text "group"
 
     assert_equal 2, party.guests.reload.count
   end

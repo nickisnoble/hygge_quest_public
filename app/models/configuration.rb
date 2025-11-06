@@ -25,4 +25,8 @@ class Configuration < ApplicationRecord
   def self.primary_color
     get("primary_color", "#1f2937") # Default to gray-800
   end
+
+  def self.highlight_color
+    get("highlight_color", "#3b82f6") # Default to blue-500
+  end
 end
