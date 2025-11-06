@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="scroll-p-6 scroll-smooth focus:scroll-auto">
   <head>
-    <title>Nick & Marnie’s Wedding</title>
+    <title><%= Configuration.site_title %></title>
     <meta property="og:image" content="<%= image_url(@og_image || 'og-rsvp.jpg') %>"/>
     <meta name="robots" content="noindex,nofollow">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -20,7 +20,7 @@
       data-code="OOpeQF1mUMCAtG6LdjEIKlpsRK4nTSPB"
       data-exclude="\/guest\/sign_in\/.*"></script>
   </head>
-  <body class="bg-emerald-950">
+  <body class="bg-gray-50">
     <%= yield %>
   </body>
 </html>

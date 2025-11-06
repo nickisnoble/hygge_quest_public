@@ -12,11 +12,11 @@
     <%= favicon_link_tag asset_path('favicon.png') %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="bg-emerald-950 text-emerald-200">
+  <body class="bg-gray-50">
     <main class="min-h-screen p-4">
-      <div class="max-w-screen-lg w-full mx-auto p-4  shadow-md text-amber-950 flex flex-col gap-4">
-        <nav class="flex items-baseline font-caption text-sm gap-2">
-          <p><span class="font-bold uppercase text-emerald-800"><%= current_user.name %></span> <%= link_to "(Logout?)", guests_sign_out_path(current_user), class: "italic hover:underline" %></p>
+      <div class="max-w-screen-lg w-full mx-auto p-4 bg-white shadow-md rounded-lg flex flex-col gap-4">
+        <nav class="flex items-baseline text-sm gap-2 border-b border-gray-200 pb-3">
+          <p><span class="font-bold text-gray-900"><%= current_user.name %></span> <%= link_to "(Logout?)", guests_sign_out_path(current_user), class: "text-gray-600 hover:underline" %></p>
           <h5 class="ml-1 font-bold uppercase text-xs">Quick links:</h5>
           <div class="flex gap-2">
             <%= link_to "Guests", admin_root_path, class: "underline hover:decoration-dotted" %>

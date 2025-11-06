@@ -1,7 +1,8 @@
-<div class="bg-cover bg-[url('backgrounds/path.jpg')] h-screen p-4 grid place-content-center">
+<div class="h-screen p-4 grid place-content-center">
   <div class="card md:text-xl space-y-6">
     <div class="space-y-2">
-      <h3 class="text-balance leading-tight">You've encountered the gate of "Login"</h3>
+      <h3 class="text-balance leading-tight">Sign In</h3>
+      <p class="text-sm text-gray-600">Enter your email to receive a secure sign-in link</p>
     </div>
     <%= form_with(model: @session, url: url_for(action: 'new'), data: { turbo: 'false' }) do |f| %>
       <% email_field_name = :"passwordless[#{email_field}]" %>
