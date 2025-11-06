@@ -4,14 +4,14 @@
     <table>
       <thead class="uppercase font-bold text-xs">
         <tr>
-          <th>Feast</th>
-          <th>Plates</th>
+          <th>Meal</th>
+          <th>Count</th>
         </tr>
       </thead>
       <tbody>
-        <% @attending.group_by(&:food_preference).each do |feast, guests| %>
+        <% @attending.group_by(&:food_preference).each do |meal, guests| %>
           <tr>
-            <td class="whitespace-nowrap"><%= guests.first.feast %></td>
+            <td class="whitespace-nowrap"><%= guests.first.meal %></td>
             <td><%= guests.count %></td>
           </tr>
         <% end %>

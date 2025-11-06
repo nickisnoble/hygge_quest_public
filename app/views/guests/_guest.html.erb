@@ -8,11 +8,7 @@
     <div class="md:flex-2 flex flex-wrap gap-y-1 gap-x-3 whitespace-nowrap">
       <figure class="flex gap-1 items-center">
         <%= image_tag "food/#{guest.food_preference}.jpg", class: "self-center size-6 rounded" if guest.food_preference %>
-        <figcaption><%= guest.feast %></figcaption>
-      </figure>
-      <figure class="flex gap-1 items-center">
-        <%= image_tag(url_for(guest.guild.icon), class: "self-center size-6 rounded") if guest.guild&.icon&.attached? %>
-        <figcaption><%= guest.guild ? guest.guild.name : "No Guild Chosen" %></figcaption>
+        <figcaption><%= guest.meal %></figcaption>
       </figure>
     </div>
 

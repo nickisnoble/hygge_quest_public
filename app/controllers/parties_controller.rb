@@ -23,7 +23,7 @@ class PartiesController < ApplicationController
     end
 
     if @party.save
-      sign_in(create_passwordless_session(@party.guests.first)) unless current_user&.dungeon_master?
+      sign_in(create_passwordless_session(@party.guests.first)) unless current_user&.admin?
 
       redirect_to onboarding_path
     else
@@ -79,7 +79,7 @@ class PartiesController < ApplicationController
     if @party.rsvp
       @party.guests.each do |guest|
         group_name = guest.group&.name || "No group"
-        guest_list << "- #{guest.name} (#{guest.feast}, #{group_name})"
+        guest_list << "- #{guest.name} (#{guest.meal}, #{group_name})"
       end
     end
 

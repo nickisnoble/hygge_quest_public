@@ -7,7 +7,7 @@ class GuestsController < ApplicationController
 
   def new
     @guest = Guest.new(under_13: params[:under_13].present?)
-    @guest.party = Party.find(params[:party_id]) if params[:party_id].present? && current_user.dungeon_master?
+    @guest.party = Party.find(params[:party_id]) if params[:party_id].present? && current_user.admin?
     @guest.party ||= current_user.party
   end
 
@@ -31,7 +31,7 @@ class GuestsController < ApplicationController
     validate_preferences
     # need to manually check for error because we add our own in certain cases (see validate_preferences)
     if @guest.errors.empty? && @guest.update(guest_params)
-      flash[:success] = "Character saved!"
+      flash[:success] = "Guest saved!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -52,17 +52,13 @@ class GuestsController < ApplicationController
       unless guest_params[:food_preference].present?
         @guest.errors.add(:food_preference, "must be set")
       end
-
-      unless guest_params[:guild_id].present?
-        @guest.errors.add(:guild_id, "must be chosen")
-      end
     end
   end
 
   def guest_params
     params.require(:guest)
       .permit(
-        :name, :email, :under_13, :food_preference, :notes, :party_id, :guild_id
+        :name, :email, :under_13, :food_preference, :notes, :party_id, :group_id
       )
   end
 end

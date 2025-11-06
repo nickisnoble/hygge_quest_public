@@ -15,14 +15,14 @@
     <% end %>
 
     <div class="field  p-1 flex-[2]">
-      <%= f.label :food_preference, "Feast", required: true %>
+      <%= f.label :food_preference, "Meal", required: true %>
       <% food_options = [['Foraged (V)', 'vegetarian'], ['Fowl (Duck)', 'duck'], ['Fish (Salmon)', 'salmon']] %>
-      <% food_options.prepend(['Child’s Feast', 'child']) if guest.under_13? %>
+      <% food_options.prepend(['Child's Meal', 'child']) if guest.under_13? %>
       <%= f.select :food_preference, food_options, class: "block w-full", prompt: "Wants to eat..." %>
     </div>
     <div class="field  p-1 flex-[2]">
-      <%= f.label :guild_id, "Guild" %>
-      <%= f.collection_select :guild_id, Guild.where(secret: false), :id, :name, { include_blank: 'Select Guild' }, { class: "block w-full" } %>
+      <%= f.label :group_id, "Group" %>
+      <%= f.collection_select :group_id, Group.where(secret: false), :id, :name, { include_blank: 'Select Group' }, { class: "block w-full" } %>
     </div>
 
     <% if current_user.admin? %>

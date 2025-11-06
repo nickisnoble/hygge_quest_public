@@ -5,7 +5,7 @@ class Admin::GuestsController < GuestsController
     @columns = {
       Name: :name,
       Party: "parties.name",
-      Feast: :food_preference,
+      Meal: :food_preference,
       Group: "groups.name",
       Notes: :notes
     }

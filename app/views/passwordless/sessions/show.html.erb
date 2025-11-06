@@ -2,7 +2,7 @@
   <div class="card md:text-xl space-y-4">
     <div class="space-y-1">
       <h3>Check your email</h3>
-      <p>There you will find the magic runes that unlock this gate.</p>
+      <p>You'll find a code there to sign in.</p>
     </div>
     <%= form_with(model: @session, url: url_for(action: 'update'), scope: 'passwordless', method: 'patch', data: { turbo: false }) do |f| %>
       <div class="field">

@@ -12,8 +12,7 @@ Rails.application.routes.draw do
   get "rsvp/step-2(/:id)", to: "parties#onboarding", as: :onboarding
   resource :party, except: [:new, :destroy]
 
-  get "realm", to: "infos#map", as: :map
-  get "map", to: "infos#map" # just in case people try it
+  get "map", to: "infos#map", as: :map
   resources :locations, only: [:index]
 
   namespace :admin do
