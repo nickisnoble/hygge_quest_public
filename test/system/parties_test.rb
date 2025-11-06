@@ -11,11 +11,11 @@ class PartiesTest < ApplicationSystemTestCase
   def rsvp_as(user)
     visit new_party_url
 
-    choose("Accept")
+    choose("Yes, I'll be there")
     fill_in "Your name", with: user[:name]
     fill_in "Your email", with: user[:email]
 
-    click_on "Next"
+    click_on "Continue"
   end
 
   def sign_out
@@ -99,11 +99,11 @@ class PartiesTest < ApplicationSystemTestCase
   test "RSVP 'no' flow" do
     visit new_party_url
 
-    choose("decline")
+    choose("Sorry, I can't make it")
     fill_in "Your name", with: @user[:name]
     fill_in "Your email", with: @user[:email]
 
-    click_on "Next"
+    click_on "Continue"
 
     party = Party.find_by("name LIKE ?", "%#{@user[:name]}%")
     assert_not_nil party, "Party should exist"

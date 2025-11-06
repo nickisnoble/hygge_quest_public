@@ -2,10 +2,10 @@ require "application_system_test_case"
 
 class AdminTest < ApplicationSystemTestCase
   setup do
-    @admin_guest = guests(:admin)
-    @party = parties(:nick_party)
-    @guest = guests(:nick)
-    @group = groups(:blue)
+    @admin_guest = guests(:nick)
+    @party = parties(:one)
+    @guest = guests(:marnie)
+    @group = groups(:friends)
   end
 
   def sign_in_admin
